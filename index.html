@@ -55,7 +55,7 @@ body::before {
 }
 
 /* HERO */
-.hero { text-align: center; padding: 64px 20px 44px; }
+.hero { text-align: center; padding: 42px 16px 24px; }
 .hero-line { display:flex; align-items:center; gap:16px; justify-content:center; margin-bottom:8px; }
 .hero-line::before, .hero-line::after { content:''; flex:1; max-width:120px; height:1px; background: linear-gradient(to right, transparent, var(--gold)); }
 .hero-line::after { background: linear-gradient(to left, transparent, var(--gold)); }
@@ -83,8 +83,8 @@ body::before {
 
 /* SECTION */
 .section {
-  margin: 50px 0 28px;
-  padding: 18px 18px 20px;
+  margin: 28px 0 16px;
+  padding: 14px 14px 14px;
   border: 1px solid rgba(201,168,76,0.14);
   border-radius: 16px;
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
@@ -198,22 +198,6 @@ tbody td { padding:10px 14px; color:var(--text); }
     font-size: 9px;
     letter-spacing: .3px;
   }
-
-  .section.mobile-collapsible { padding-top: 10px; padding-bottom: 10px; }
-  .section.mobile-collapsible .section-header { margin-bottom: 0; }
-  .section.mobile-collapsible .section-toggle {
-    margin-left: auto;
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-    border: 1px solid rgba(201,168,76,0.35);
-    background: rgba(18,18,28,0.7);
-    color: var(--gold2);
-    font-size: 16px;
-    line-height: 1;
-    cursor: pointer;
-  }
-  .section.mobile-collapsible.collapsed > :not(.section-header) { display: none; }
 }
 </style>
 </head>
@@ -457,7 +441,7 @@ tbody td { padding:10px 14px; color:var(--text); }
   <div class="section-header">
     <div class="section-icon">&#128184;</div>
     <div class="section-title">Pengeluaran</div>
-    <span class="section-count">Rp 8.080.000</span>
+    <span class="section-count">Rp 8.110.000</span>
   </div>
   <div class="section-divider"></div>
   <div class="table-wrap">
@@ -468,16 +452,16 @@ tbody td { padding:10px 14px; color:var(--text); }
         <tr><td style="padding-left:28px;color:var(--green)">&#8627; Subsidi dari teman-teman</td><td class="td-center" style="color:var(--green)">Donasi</td><td class="td-right" style="color:var(--green)">− Rp 200.000</td></tr>
         <tr><td><strong style="color:var(--gold2)">Rogo Music</strong> <span style="font-size:9px;color:var(--gold)">setelah subsidi</span></td><td></td><td class="td-right">Rp 3.100.000</td></tr>
         <tr class="row-group"><td colspan="3">Konsumsi Peserta &amp; Crew</td></tr>
-        <tr><td style="padding-left:28px;color:var(--text2)">Peserta hadir</td><td class="td-center" style="color:var(--text2)">92 org &times; Rp 30.000</td><td class="td-right">Rp 2.760.000</td></tr>
+        <tr><td style="padding-left:28px;color:var(--text2)">Peserta hadir</td><td class="td-center" style="color:var(--text2)">93 org &times; Rp 30.000</td><td class="td-right">Rp 2.790.000</td></tr>
         <tr class="row-update"><td style="padding-left:28px">Crew <span class="badge badge-donasi" style="margin-left:6px;font-size:8px">UPDATE: 13 org</span></td><td class="td-center" style="color:var(--text2)">13 org &times; Rp 30.000</td><td class="td-right" style="color:var(--gold2)">Rp 390.000</td></tr>
-        <tr class="row-subtotal"><td colspan="2">Total Konsumsi</td><td class="td-right">Rp 3.150.000</td></tr>
+        <tr class="row-subtotal"><td colspan="2">Total Konsumsi</td><td class="td-right">Rp 3.180.000</td></tr>
         <tr class="row-new"><td><strong style="color:var(--blue)">Soundman</strong> <span class="badge badge-baru" style="margin-left:6px">BARU</span></td><td class="td-center" style="color:var(--text2)">Honor</td><td class="td-right" style="color:var(--blue)">Rp 200.000</td></tr>
-        <tr class="row-subtotal"><td colspan="2">Subtotal Acara</td><td class="td-right">Rp 6.450.000</td></tr>
+        <tr class="row-subtotal"><td colspan="2">Subtotal Acara</td><td class="td-right">Rp 6.480.000</td></tr>
         <tr class="row-group"><td colspan="3">Takjil</td></tr>
         <tr><td style="padding-left:28px;color:var(--text2)">200 Pack Nasi Geprek + Aqua + Kripik Usus</td><td></td><td class="td-right">Rp 1.350.000</td></tr>
         <tr class="row-subtotal"><td colspan="2">Subtotal Takjil</td><td class="td-right">Rp 1.350.000</td></tr>
         <tr class="row-new"><td><strong style="color:var(--blue)">Cetak Sticker</strong> <span class="badge badge-baru" style="margin-left:6px">BARU</span></td><td class="td-center" style="color:var(--text2)">3 Meter</td><td class="td-right" style="color:var(--blue)">Rp 280.000</td></tr>
-        <tr class="row-total"><td colspan="2">TOTAL PENGELUARAN</td><td class="td-right">Rp 8.080.000</td></tr>
+        <tr class="row-total"><td colspan="2">TOTAL PENGELUARAN</td><td class="td-right">Rp 8.110.000</td></tr>
       </tbody>
     </table>
   </div>
@@ -554,16 +538,16 @@ tbody td { padding:10px 14px; color:var(--text); }
     </div>
     <div class="fin-card red">
       <div class="fc-label">Total Pengeluaran</div>
-      <div class="fc-val">Rp 8.080.000</div>
+      <div class="fc-val">Rp 8.110.000</div>
       <div class="fc-sub">Acara + Takjil + Soundman + Sticker</div>
     </div>
   </div>
   <div class="rekap-final">
     <div class="rekap-row income"><span class="rl">Total Pemasukan</span><span class="rv">Rp 8.422.500</span></div>
-    <div class="rekap-row expense"><span class="rl">Total Pengeluaran</span><span class="rv">- Rp 8.080.000</span></div>
-    <div class="rekap-row"><span class="rl">Sisa Awal</span><span class="rv">Rp 342.500</span></div>
+    <div class="rekap-row expense"><span class="rl">Total Pengeluaran</span><span class="rv">- Rp 8.110.000</span></div>
+    <div class="rekap-row"><span class="rl">Sisa Awal</span><span class="rv">Rp 312.500</span></div>
     <div class="rekap-row minus"><span class="rl">Keperluan Lain-lain (Makan)</span><span class="rv">- Rp 115.000</span></div>
-    <div class="rekap-row final"><span class="rl">Dana Darurat (Sisa Akhir)</span><span class="rv">Rp 227.500</span></div>
+    <div class="rekap-row final"><span class="rl">Dana Darurat (Sisa Akhir)</span><span class="rv">Rp 197.500</span></div>
   </div>
 </div>
 
@@ -586,61 +570,16 @@ tbody td { padding:10px 14px; color:var(--text); }
       var heads = Array.from(table.querySelectorAll('thead th')).map(function (th) {
         return (th.textContent || '').trim() || 'Kolom';
       });
-      var rows = table.querySelectorAll('tbody tr');
-      rows.forEach(function (tr) {
-        var cells = tr.querySelectorAll('td');
-        cells.forEach(function (td, idx) {
+      table.querySelectorAll('tbody tr').forEach(function (tr) {
+        tr.querySelectorAll('td').forEach(function (td, idx) {
           td.setAttribute('data-label', heads[idx] || ('Kolom ' + (idx + 1)));
         });
       });
       table.classList.toggle('mobile-cards', mobile);
     });
   }
-
-  function setMobileSectionCollapse() {
-    var mobile = window.innerWidth <= 600;
-    var sections = document.querySelectorAll('.section');
-    sections.forEach(function (section, idx) {
-      var header = section.querySelector('.section-header');
-      if (!header) return;
-
-      section.classList.toggle('mobile-collapsible', mobile);
-
-      var btn = header.querySelector('.section-toggle');
-      if (!btn) {
-        btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'section-toggle';
-        btn.setAttribute('aria-label', 'Expand/collapse section');
-        header.appendChild(btn);
-      }
-
-      if (mobile) {
-        if (!section.dataset.initCollapse) {
-          // Keep first 2 sections open (Rundown + Peserta summary context)
-          if (idx > 1) section.classList.add('collapsed');
-          section.dataset.initCollapse = '1';
-        }
-      } else {
-        section.classList.remove('collapsed');
-      }
-
-      btn.textContent = section.classList.contains('collapsed') ? '+' : '−';
-      btn.style.display = mobile ? 'inline-flex' : 'none';
-      btn.onclick = function () {
-        section.classList.toggle('collapsed');
-        btn.textContent = section.classList.contains('collapsed') ? '+' : '−';
-      };
-    });
-  }
-
-  function applyMobileUX() {
-    setMobileCards();
-    setMobileSectionCollapse();
-  }
-
-  window.addEventListener('resize', applyMobileUX);
-  window.addEventListener('DOMContentLoaded', applyMobileUX);
+  window.addEventListener('resize', setMobileCards);
+  window.addEventListener('DOMContentLoaded', setMobileCards);
 })();
 </script>
 </body>
