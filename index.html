@@ -42,17 +42,33 @@ body::before {
   pointer-events:none;
   z-index:0;
 }
-.container { max-width: 960px; margin: 0 auto; padding: 0 20px 60px; position:relative; z-index:1; }
+.container {
+  max-width: 980px;
+  margin: 22px auto 38px;
+  padding: 0 22px 64px;
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(201,168,76,0.16);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0));
+  box-shadow: 0 0 0 1px rgba(201,168,76,0.08) inset, 0 18px 65px rgba(0,0,0,0.52);
+}
 
 /* HERO */
-.hero { text-align: center; padding: 60px 20px 40px; }
+.hero { text-align: center; padding: 64px 20px 44px; }
 .hero-line { display:flex; align-items:center; gap:16px; justify-content:center; margin-bottom:8px; }
 .hero-line::before, .hero-line::after { content:''; flex:1; max-width:120px; height:1px; background: linear-gradient(to right, transparent, var(--gold)); }
 .hero-line::after { background: linear-gradient(to left, transparent, var(--gold)); }
 .hero-eyebrow { font-size:11px; font-weight:600; letter-spacing:4px; text-transform:uppercase; color:var(--gold); }
 .hero-title { font-family:'Playfair Display',serif; font-size:clamp(42px,8vw,72px); font-weight:900; background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 50%,var(--gold) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1.1; margin-bottom:8px; }
 .hero-subtitle { font-size:13px; color:var(--text2); letter-spacing:2px; text-transform:uppercase; margin-bottom:32px; }
-.flyer-wrap { border-radius:16px; overflow:hidden; box-shadow:0 0 0 1px var(--border),0 8px 60px rgba(201,168,76,0.15),0 30px 80px rgba(0,0,0,0.6); margin-bottom:16px; position:relative; }
+.flyer-wrap {
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(201,168,76,0.22), 0 14px 70px rgba(201,168,76,0.2), 0 38px 90px rgba(0,0,0,0.68);
+  margin-bottom: 18px;
+  position: relative;
+}
 .flyer-wrap img { width:100%; display:block; }
 .flyer-wrap::after { content:''; position:absolute; inset:0; border-radius:16px; border:1px solid var(--border2); pointer-events:none; }
 
@@ -66,7 +82,13 @@ body::before {
 .stat-sub { font-size:11px; color:var(--text2); margin-top:4px; }
 
 /* SECTION */
-.section { margin:48px 0 24px; }
+.section {
+  margin: 50px 0 28px;
+  padding: 18px 18px 20px;
+  border: 1px solid rgba(201,168,76,0.14);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
+}
 .section-header { display:flex; align-items:center; gap:14px; margin-bottom:20px; }
 .section-icon { width:36px; height:36px; background:linear-gradient(135deg,var(--gold3),var(--gold)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
 .section-title { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--gold2); flex:1; }
@@ -74,7 +96,13 @@ body::before {
 .section-divider { height:1px; background:linear-gradient(90deg,var(--gold),transparent); margin-top:8px; margin-bottom:20px; }
 
 /* TABLE */
-.table-wrap { background:var(--glass); border:1px solid var(--border); border-radius:12px; overflow:hidden; box-shadow:0 4px 24px rgba(0,0,0,0.3); }
+.table-wrap {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(201,168,76,0.22);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.38);
+}
 table { width:100%; border-collapse:collapse; font-size:12px; }
 thead tr { background:linear-gradient(90deg,rgba(201,168,76,0.15),rgba(201,168,76,0.08)); border-bottom:1px solid var(--border2); }
 thead th { padding:12px 14px; text-align:left; font-size:9.5px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gold); }
@@ -122,10 +150,6 @@ tbody td { padding:10px 14px; color:var(--text); }
 .rekap-row.minus .rv { color:var(--red); font-size:12px; }
 .rekap-row.final .rl { font-family:'Playfair Display',serif; font-size:16px; color:var(--gold2); font-weight:600; }
 .rekap-row.final .rv { font-family:'Playfair Display',serif; font-size:28px; color:var(--gold); font-weight:700; }
-
-/* UPDATE NOTE */
-.update-box { background:rgba(251,191,36,0.07); border:1px solid rgba(251,191,36,0.25); border-radius:10px; padding:14px 18px; margin:24px 0; font-size:11px; color:#fbbf24; line-height:1.7; }
-.update-box strong { color:var(--gold2); }
 
 /* DONASI LABEL */
 .donasi-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); padding:8px 14px; background:rgba(201,168,76,0.08); border-radius:6px; margin:16px 0 8px; display:inline-block; }
@@ -202,12 +226,6 @@ tbody td { padding:10px 14px; color:var(--text); }
       <div class="stat-sub">&rarr; Donasi</div>
     </div>
   </div>
-</div>
-
-<div class="update-box">
-  &#9679; <strong>Pembaruan:</strong> Bisma (#97) ditambahkan &bull; Soundman honor Rp 200.000 &bull;
-  Crew: 12 &rarr; <strong>13 orang</strong> &bull; Total Pengeluaran: Rp 7.570.000 &rarr; <strong>Rp 8.080.000</strong> &bull;
-  Dana Darurat: Rp 687.500 &rarr; <strong>Rp 177.500</strong> &bull; Cetak Sticker 3m Rp 280.000
 </div>
 
 <!-- PESERTA -->
