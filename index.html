@@ -165,9 +165,118 @@ tbody td { padding:10px 14px; color:var(--text); }
   .fin-cards { grid-template-columns:1fr; }
   .hero-title { font-size:36px; }
 }
+
+/* ULTRA PREMIUM ENHANCEMENTS */
+body.loading { overflow: hidden; }
+#cinematicLoader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(1200px 420px at 50% -10%, rgba(201,168,76,0.22), transparent 55%), #07070d;
+  transition: opacity .8s ease, visibility .8s ease;
+}
+#cinematicLoader.hide { opacity: 0; visibility: hidden; }
+.loader-card {
+  text-align: center;
+  padding: 24px 28px;
+  border: 1px solid rgba(201,168,76,0.28);
+  border-radius: 14px;
+  background: rgba(20,20,30,0.72);
+  box-shadow: 0 0 0 1px rgba(201,168,76,0.12) inset, 0 18px 55px rgba(0,0,0,0.62);
+}
+.loader-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 34px;
+  letter-spacing: 1px;
+  color: var(--gold2);
+  margin-bottom: 2px;
+}
+.loader-sub {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text2);
+  margin-bottom: 16px;
+}
+.loader-bar {
+  width: 280px;
+  max-width: 74vw;
+  height: 6px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(201,168,76,0.22);
+}
+.loader-fill {
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, #8b6914, #f0d080, #8b6914);
+  animation: loaderMove 1.4s ease-in-out infinite;
+}
+@keyframes loaderMove {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(320%); }
+}
+
+body.js-enhanced .hero,
+body.js-enhanced .section,
+body.js-enhanced .footer {
+  opacity: 0;
+  transform: translateY(26px);
+  filter: blur(2px);
+  transition: opacity .75s ease, transform .75s ease, filter .75s ease;
+}
+body.js-enhanced .is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  filter: blur(0) !important;
+}
+
+#presentationToggle {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1200;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(201,168,76,0.35);
+  background: rgba(15,15,24,0.78);
+  color: var(--gold2);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+}
+#presentationToggle:hover { border-color: rgba(240,208,128,0.7); }
+
+body.presentation-mode .container {
+  max-width: 1220px;
+  padding-left: 34px;
+  padding-right: 34px;
+}
+body.presentation-mode .hero-title { font-size: clamp(58px, 7vw, 92px); }
+body.presentation-mode .hero-subtitle { font-size: 16px; letter-spacing: 2.5px; }
+body.presentation-mode .section-title { font-size: 28px; }
+body.presentation-mode table { font-size: 14px; }
+body.presentation-mode thead th { font-size: 11px; }
+body.presentation-mode .stat-num { font-size: 48px; }
+
 </style>
 </head>
-<body>
+<body class="loading">
+
+<div id="cinematicLoader" aria-hidden="true">
+  <div class="loader-card">
+    <div class="loader-title">Senja Manja</div>
+    <div class="loader-sub">Luxury Financial Dashboard</div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+  </div>
+</div>
+<button id="presentationToggle" type="button">Mode Presentasi: Off</button>
+
 <div class="container">
 
 <!-- HERO -->
@@ -525,5 +634,53 @@ tbody td { padding:10px 14px; color:var(--text); }
 </div>
 
 </div>
+
+<script>
+(function(){
+  const body = document.body;
+  const loader = document.getElementById('cinematicLoader');
+  const toggle = document.getElementById('presentationToggle');
+  body.classList.add('js-enhanced');
+
+  const revealItems = Array.from(document.querySelectorAll('.hero, .section, .footer'));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  revealItems.forEach((el) => observer.observe(el));
+
+  function updateToggleLabel(){
+    toggle.textContent = 'Mode Presentasi: ' + (body.classList.contains('presentation-mode') ? 'On' : 'Off');
+  }
+
+  const stored = localStorage.getItem('sm9_presentation_mode');
+  if (stored === 'on') body.classList.add('presentation-mode');
+  if (!stored && window.innerWidth >= 1500) body.classList.add('presentation-mode');
+  updateToggleLabel();
+
+  toggle.addEventListener('click', () => {
+    body.classList.toggle('presentation-mode');
+    localStorage.setItem('sm9_presentation_mode', body.classList.contains('presentation-mode') ? 'on' : 'off');
+    updateToggleLabel();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if ((e.key || '').toLowerCase() === 'p') toggle.click();
+  });
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      body.classList.remove('loading');
+      if (loader) loader.classList.add('hide');
+      revealItems.slice(0,2).forEach(el => el.classList.add('is-visible'));
+    }, 850);
+  });
+})();
+</script>
+
 </body>
 </html>
