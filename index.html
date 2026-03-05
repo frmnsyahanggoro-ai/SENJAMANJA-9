@@ -169,9 +169,35 @@ tbody td { padding:10px 14px; color:var(--text); }
   .section { padding: 14px 12px 14px; }
   .section-header { gap: 9px; }
   .section-title { font-size: 18px; }
-  .table-wrap { margin: 0 -2px; }
-  table { min-width: 680px; font-size: 11px; }
+  .table-wrap { margin: 0; overflow: visible; }
+  table { min-width: 0; width: 100%; font-size: 11px; }
   tbody td, thead th { padding-left: 10px; padding-right: 10px; }
+
+  table.mobile-cards thead { display: none; }
+  table.mobile-cards tbody tr {
+    display: block;
+    border: 1px solid rgba(201,168,76,0.18);
+    border-radius: 10px;
+    margin: 0 0 10px;
+    padding: 6px 8px;
+    background: rgba(255,255,255,0.02);
+  }
+  table.mobile-cards tbody td {
+    display: grid;
+    grid-template-columns: 42% 58%;
+    gap: 10px;
+    align-items: center;
+    text-align: left !important;
+    border-bottom: 1px dashed rgba(255,255,255,0.08);
+    padding: 7px 4px;
+  }
+  table.mobile-cards tbody td:last-child { border-bottom: none; }
+  table.mobile-cards tbody td::before {
+    content: attr(data-label);
+    color: var(--text2);
+    font-size: 10px;
+    letter-spacing: .3px;
+  }
 }
 </style>
 </head>
@@ -533,5 +559,29 @@ tbody td { padding:10px 14px; color:var(--text); }
 </div>
 
 </div>
+
+<script>
+(function () {
+  function setMobileCards() {
+    var mobile = window.innerWidth <= 600;
+    var tables = document.querySelectorAll('.table-wrap table');
+    tables.forEach(function (table) {
+      var heads = Array.from(table.querySelectorAll('thead th')).map(function (th) {
+        return (th.textContent || '').trim() || 'Kolom';
+      });
+      var rows = table.querySelectorAll('tbody tr');
+      rows.forEach(function (tr) {
+        var cells = tr.querySelectorAll('td');
+        cells.forEach(function (td, idx) {
+          td.setAttribute('data-label', heads[idx] || ('Kolom ' + (idx + 1)));
+        });
+      });
+      table.classList.toggle('mobile-cards', mobile);
+    });
+  }
+  window.addEventListener('resize', setMobileCards);
+  window.addEventListener('DOMContentLoaded', setMobileCards);
+})();
+</script>
 </body>
 </html>
