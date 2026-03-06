@@ -8,11 +8,11 @@
 | Keterangan | Nilai |
 |---|---|
 | Total Peserta | 101 orang |
-| Yang Hadir | 96 orang |
-| Tidak Hadir | 5 orang (→ donasi) |
+| Yang Hadir | 94 orang |
+| Tidak Hadir | 7 orang (→ donasi) |
 | Total Pemasukan | Rp 8.572.500 |
-| Total Pengeluaran | Rp 8.200.000 |
-| Dana Darurat (Sisa Akhir) | Rp 257.500 |
+| Total Pengeluaran | Rp 8.140.000 |
+| Dana Darurat (Sisa Akhir) | Rp 317.500 |
 
 ## Isi Dokumen
 
@@ -25,10 +25,10 @@
 
 - Penambahan peserta Bisma H (#97)
 - Penambahan peserta Cullens (#99), Gilang (#100), dan Lita (#101)
-- Koreksi tidak hadir: Dhani Naufal, Tempe, Rajasa, Ganden, Mbah Niko
+- Koreksi tidak hadir: Dhani Naufal, Tempe, Rajasa, Ganden, Mbah Niko, Totti, Mbah No
 - Soundman: honor Rp 200.000
 - Crew konsumsi: 12 → 13 orang
-- Dana Darurat diperbarui: Rp 687.500 → Rp 257.500
+- Dana Darurat diperbarui: Rp 687.500 → Rp 317.500
 
 ---
 
