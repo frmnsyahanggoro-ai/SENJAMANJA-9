@@ -43,9 +43,9 @@ body::before {
   z-index:0;
 }
 .container {
-  max-width: 980px;
-  margin: 22px auto 38px;
-  padding: 0 22px 64px;
+  max-width: 1040px;
+  margin: 20px auto 40px;
+  padding: 0 24px 68px;
   position: relative;
   z-index: 1;
   border: 1px solid rgba(201,168,76,0.16);
@@ -73,9 +73,9 @@ body::before {
 .flyer-wrap::after { content:''; position:absolute; inset:0; border-radius:16px; border:1px solid var(--border2); pointer-events:none; }
 
 /* STATS */
-.stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:32px 0; }
-.stat-card { background:var(--glass2); border:1px solid var(--border); border-radius:12px; padding:20px 16px; text-align:center; position:relative; overflow:hidden; transition:transform 0.3s,box-shadow 0.3s; }
-.stat-card:hover { transform:translateY(-3px); box-shadow:0 8px 30px rgba(201,168,76,0.15); }
+.stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:34px 0; }
+.stat-card { background:linear-gradient(150deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03)); border:1px solid var(--border); border-radius:14px; padding:22px 16px; text-align:center; position:relative; overflow:hidden; transition:transform 0.28s,box-shadow 0.28s,border-color 0.28s; }
+.stat-card:hover { transform:translateY(-4px); box-shadow:0 16px 34px rgba(0,0,0,0.34); border-color:rgba(210,175,87,0.52); }
 .stat-card::before { content:''; position:absolute; top:0;left:0;right:0; height:2px; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
 .stat-num { font-family:'Playfair Display',serif; font-size:36px; font-weight:700; color:var(--gold); line-height:1; margin-bottom:4px; }
 .stat-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--text2); }
@@ -160,6 +160,55 @@ tbody td { padding:10px 14px; color:var(--text); }
 .footer-logo { font-family:'Playfair Display',serif; font-size:24px; font-weight:700; background:linear-gradient(135deg,var(--gold),var(--gold2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:8px; }
 .footer-sub { font-size:11px; color:var(--text2); letter-spacing:2px; }
 
+.music-widget {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+.music-btn {
+  border: 1px solid var(--border2);
+  background: rgba(12, 18, 32, 0.88);
+  color: var(--gold2);
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+  transition: all 0.25s ease;
+}
+.music-btn:hover {
+  transform: translateY(-2px);
+  color: #fff3cf;
+  border-color: var(--gold);
+}
+.music-panel {
+  width: min(350px, calc(100vw - 28px));
+  border: 1px solid var(--border2);
+  background: rgba(13, 19, 34, 0.92);
+  border-radius: 12px;
+  padding: 10px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.42);
+  display: none;
+}
+.music-panel.open { display: block; }
+.music-panel p { margin: 0 0 8px; font-size: 10px; color: var(--text2); line-height: 1.45; }
+.music-link { color: var(--gold2); text-decoration: none; }
+.music-link:hover { text-decoration: underline; }
+.music-frame {
+  width: 100%;
+  height: 86px;
+  border: 0;
+  border-radius: 8px;
+  background: #0d0f16;
+}
 @media (max-width:600px) {
   .container { margin: 8px auto 18px; padding: 0 10px 34px; border-radius: 14px; }
   .stats-row { gap:8px; }
@@ -171,6 +220,8 @@ tbody td { padding:10px 14px; color:var(--text); }
   .section-title { font-size: 18px; }
   .table-wrap { margin: 0; overflow: visible; }
   table { min-width: 0; width: 100%; font-size: 11px; }
+  .hero-subtitle { font-size: 11px; letter-spacing: 1.4px; margin-bottom: 24px; }
+  .section-divider { margin-bottom: 16px; }
   tbody td, thead th { padding-left: 10px; padding-right: 10px; }
 
   table.mobile-cards thead { display: none; }
@@ -198,6 +249,9 @@ tbody td { padding:10px 14px; color:var(--text); }
     font-size: 9px;
     letter-spacing: .3px;
   }
+  .music-widget { right: 10px; bottom: 10px; }
+  .music-btn { padding: 9px 12px; font-size: 10px; }
+  .music-frame { height: 82px; }
 }
 </style>
 </head>
@@ -232,11 +286,11 @@ tbody td { padding:10px 14px; color:var(--text); }
         <th>Kegiatan</th>
       </tr></thead>
       <tbody>
-        <tr><td style="color:var(--gold);font-weight:600">16.00 – 17.00</td><td>Kumpul &amp; Packing Takjil</td></tr>
-        <tr><td style="color:var(--gold);font-weight:600">17.00 – 18.00</td><td>Bagi Takjil</td></tr>
-        <tr><td style="color:var(--gold);font-weight:600">18.00 – 18.30</td><td>Buka Bersama &amp; Ramah Tamah</td></tr>
-        <tr><td style="color:var(--gold);font-weight:600">18.30 – 19.00</td><td>Rapat Persiapan Perencanaan 1 Dekade Buka Bersama &amp; Bagi Takjil <span style="font-size:10px;color:var(--text2)">(Pembahasan Dana &amp; Voting)</span></td></tr>
-        <tr><td style="color:var(--gold);font-weight:600">19.00 – Selesai</td><td>Puncak Acara</td></tr>
+        <tr><td style="color:var(--gold);font-weight:600">16.00 - 17.00</td><td>Kumpul &amp; Packing Takjil</td></tr>
+        <tr><td style="color:var(--gold);font-weight:600">17.00 - 18.00</td><td>Bagi Takjil</td></tr>
+        <tr><td style="color:var(--gold);font-weight:600">18.00 - 18.30</td><td>Buka Bersama &amp; Ramah Tamah</td></tr>
+        <tr><td style="color:var(--gold);font-weight:600">18.30 - 19.00</td><td>Rapat Persiapan Perencanaan 1 Dekade Buka Bersama &amp; Bagi Takjil <span style="font-size:10px;color:var(--text2)">(Pembahasan Dana &amp; Voting)</span></td></tr>
+        <tr><td style="color:var(--gold);font-weight:600">19.00 - Selesai</td><td>Puncak Acara</td></tr>
       </tbody>
     </table>
   </div>
@@ -455,7 +509,7 @@ tbody td { padding:10px 14px; color:var(--text); }
       <thead><tr><th>Pos Pengeluaran</th><th style="text-align:center;width:150px">Keterangan</th><th style="text-align:right;width:120px">Nominal</th></tr></thead>
       <tbody>
         <tr><td><strong style="color:var(--gold2)">Rogo Music</strong> <span style="font-size:9px;color:var(--text2)">(harga asli)</span></td><td></td><td class="td-right" style="color:var(--text2);text-decoration:line-through">Rp 3.300.000</td></tr>
-        <tr><td style="padding-left:28px;color:var(--green)">&#8627; Subsidi dari teman-teman</td><td class="td-center" style="color:var(--green)">Donasi</td><td class="td-right" style="color:var(--green)">− Rp 200.000</td></tr>
+        <tr><td style="padding-left:28px;color:var(--green)">&#8627; Subsidi dari teman-teman</td><td class="td-center" style="color:var(--green)">Donasi</td><td class="td-right" style="color:var(--green)">- Rp 200.000</td></tr>
         <tr><td><strong style="color:var(--gold2)">Rogo Music</strong> <span style="font-size:9px;color:var(--gold)">setelah subsidi</span></td><td></td><td class="td-right">Rp 3.100.000</td></tr>
         <tr class="row-group"><td colspan="3">Konsumsi Peserta &amp; Crew</td></tr>
         <tr><td style="padding-left:28px;color:var(--text2)">Peserta hadir</td><td class="td-center" style="color:var(--text2)">94 org &times; Rp 30.000</td><td class="td-right">Rp 2.820.000</td></tr>
@@ -567,6 +621,21 @@ tbody td { padding:10px 14px; color:var(--text); }
 
 </div>
 
+<div class="music-widget" aria-live="polite">
+  <button id="musicToggle" class="music-btn" type="button" aria-expanded="false">UNMUTE MUSIC</button>
+  <div id="musicPanel" class="music-panel" role="region" aria-label="Ramadan music player">
+    <p>Lagu Ramadhan (autoplay muted). Klik tombol untuk suara.</p>
+    <iframe
+      id="musicFrame"
+      class="music-frame"
+      title="Ramadan Music"
+      loading="lazy"
+      allow="autoplay; encrypted-media"
+      referrerpolicy="strict-origin-when-cross-origin"
+      src="about:blank"></iframe>
+    <p style="margin-top:8px">Sumber: <a class="music-link" href="https://www.youtube.com/watch?v=WifNqQ8ZQ0M" target="_blank" rel="noopener">YouTube</a></p>
+  </div>
+</div>
 <script>
 (function () {
   function setMobileCards() {
@@ -588,5 +657,47 @@ tbody td { padding:10px 14px; color:var(--text); }
   window.addEventListener('DOMContentLoaded', setMobileCards);
 })();
 </script>
-</body>
+<script>
+(function () {
+  function initMusicWidget() {
+    var toggle = document.getElementById('musicToggle');
+    var panel = document.getElementById('musicPanel');
+    var frame = document.getElementById('musicFrame');
+    if (!toggle || !panel || !frame) return;
+
+    var mutedAutoplayUrl = 'https://www.youtube-nocookie.com/embed/WifNqQ8ZQ0M?autoplay=1&mute=1&controls=0&rel=0&loop=1&playlist=WifNqQ8ZQ0M';
+    var unmutedUrl = 'https://www.youtube-nocookie.com/embed/WifNqQ8ZQ0M?autoplay=1&mute=0&controls=1&rel=0';
+
+    function setMutedBackground() {
+      panel.classList.remove('open');
+      frame.src = mutedAutoplayUrl;
+      toggle.textContent = 'UNMUTE MUSIC';
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function setUnmutedPanel() {
+      panel.classList.add('open');
+      frame.src = unmutedUrl;
+      toggle.textContent = 'CLOSE MUSIC';
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    toggle.addEventListener('click', function () {
+      if (panel.classList.contains('open')) setMutedBackground();
+      else setUnmutedPanel();
+    });
+
+    window.addEventListener('keydown', function (event) {
+      if (event.key === 'm' || event.key === 'M') {
+        if (panel.classList.contains('open')) setMutedBackground();
+        else setUnmutedPanel();
+      }
+    });
+
+    setMutedBackground();
+  }
+
+  window.addEventListener('DOMContentLoaded', initMusicWidget);
+})();
+</script></body>
 </html>
