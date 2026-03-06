@@ -1,273 +1,818 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Admin Senja Manja #9</title>
-<style>
-:root{--bg:#0b0b12;--card:#151522;--line:#2b2b42;--txt:#ece4d3;--muted:#9f947e;--gold:#c9a84c;--ok:#4ade80;--warn:#fbbf24}
-*{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--txt)}
-.wrap{max-width:860px;margin:24px auto;padding:0 16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
-h1{margin:0 0 8px;font-size:24px;color:var(--gold)} p{color:var(--muted)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px} .full{grid-column:1/-1}
-label{display:block;font-size:12px;color:var(--muted);margin:0 0 6px}
-input{width:100%;padding:10px 12px;background:#0f0f18;border:1px solid #2a2a3a;border-radius:8px;color:var(--txt)}
-.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-button{padding:10px 14px;border:1px solid var(--line);background:#1b1b2b;color:var(--txt);border-radius:8px;cursor:pointer}
-button.primary{background:linear-gradient(135deg,#8b6914,#c9a84c);color:#111;font-weight:700;border:none}
-.log{white-space:pre-wrap;background:#0f0f18;border:1px solid #292940;border-radius:8px;padding:12px;min-height:92px;color:#d5cfbf}
-.small{font-size:12px;color:var(--muted)} .ok{color:var(--ok)} .warn{color:var(--warn)}
-@media(max-width:700px){.grid{grid-template-columns:1fr}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Senja Manja #9 - Panel Lengkap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0b12;
+      --card: #151522;
+      --line: #2b2b42;
+      --txt: #ece4d3;
+      --muted: #9f947e;
+      --gold: #c9a84c;
+      --gold2: #f0d080;
+      --ok: #4ade80;
+      --err: #f87171;
+      --warn: #fbbf24;
+      --blue: #60a5fa;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--txt); min-height: 100vh; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 20px 16px 40px; }
+    
+    h1 { margin: 0 0 6px; font-size: 26px; color: var(--gold); }
+    .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+    
+    .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+    .tab { padding: 10px 18px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; color: var(--muted); cursor: pointer; font-size: 13px; transition: all 0.2s; }
+    .tab:hover { color: var(--txt); border-color: var(--gold); }
+    .tab.active { background: linear-gradient(135deg, #8b6914, var(--gold)); color: #111; border-color: var(--gold); }
+    
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+    .card h2 { margin: 0 0 16px; font-size: 16px; color: var(--gold2); display: flex; align-items: center; gap: 8px; }
+    .card h2::before { content: ''; width: 4px; height: 18px; background: var(--gold); border-radius: 2px; }
+    
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+    .grid.full { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 700px) { .grid.full { grid-template-columns: 1fr; } }
+    
+    label { display: block; font-size: 11px; color: var(--muted); margin: 0 0 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+    input, select, textarea { width: 100%; padding: 10px 12px; background: #0f0f18; border: 1px solid #2a2a3a; border-radius: 8px; color: var(--txt); font-size: 14px; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); }
+    
+    .btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+    button { padding: 10px 16px; border: 1px solid var(--line); background: #1b1b2b; color: var(--txt); border-radius: 8px; cursor: pointer; font-size: 13px; transition: all 0.2s; }
+    button:hover { background: #252538; border-color: var(--gold); }
+    button.primary { background: linear-gradient(135deg, #8b6914, var(--gold)); color: #111; font-weight: 700; border: none; }
+    button.primary:hover { background: linear-gradient(135deg, #9f7a1a, var(--gold2)); }
+    button.danger { background: rgba(248,113,113,0.15); color: var(--err); border-color: rgba(248,113,113,0.4); }
+    button.danger:hover { background: rgba(248,113,113,0.25); }
+    button.small { padding: 6px 12px; font-size: 12px; }
+    
+    .tbl-wrap { overflow-x: auto; padding: 2px; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); }
+    th { background: rgba(201,168,76,0.1); color: var(--gold); font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; }
+    .badge-ok { background: rgba(74,222,128,0.2); color: var(--ok); }
+    .badge-no { background: rgba(248,113,113,0.2); color: var(--err); }
+    .badge-new { background: rgba(96,165,250,0.2); color: var(--blue); }
+
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+    
+    .preview-box { background: #0f0f18; border: 1px solid #2a2a3a; border-radius: 10px; padding: 16px; font-size: 13px; line-height: 1.8; }
+    .preview-box .row { display: flex; justify-content: space-between; padding: 4px 0; }
+    .preview-box .row.total { font-weight: 700; color: var(--gold); margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--line); }
+    .preview-box .row.income .val { color: var(--ok); }
+    .preview-box .row.expense .val { color: var(--err); }
+    
+    .log { white-space: pre-wrap; background: #0f0f18; border: 1px solid #2a2a3a; border-radius: 8px; padding: 12px; min-height: 80px; font-size: 12px; color:var(--muted); max-height: 200px; overflow-y: auto; }
+    .ok { color: var(--ok); }
+    .warn { color: var(--warn); }
+    .err { color: var(--err); }
+    
+    .gh-section { background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.2); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+    .gh-section label { color: var(--gold); }
+    
+    .add-row { display: flex; gap: 8px; align-items: flex-end; margin-bottom: 12px; }
+    .add-row input { flex: 1; }
+    
+    .empty-msg { color: var(--muted); font-size: 13px; padding: 16px; text-align: center; }
+  </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="card">
+  <div class="wrap">
     <h1>Admin Panel Senja Manja #9</h1>
-    <p>Ubah angka inti, lalu publish langsung ke <code>index.html</code> di GitHub Pages.</p>
-    <p class="small">Catatan: token tidak disimpan; hanya dipakai saat klik publish.</p>
-  </div>
+    <p class="subtitle">Kelola peserta, pengeluaran, donasi, dan publish ke GitHub. Semua perhitungan otomatis.</p>
 
-  <div class="card">
-    <div class="grid">
-      <div class="full">
-        <label>GitHub Token (scope: repo)</label>
-        <input id="token" type="password" placeholder="ghp_xxx..." />
+    <div class="tabs">
+      <button class="tab active" data-panel="peserta">Peserta</button>
+      <button class="tab" data-panel="tidak-hadir">Tidak Hadir</button>
+      <button class="tab" data-panel="pemasukan">Pemasukan</button>
+      <button class="tab" data-panel="pengeluaran">Pengeluaran</button>
+      <button class="tab" data-panel="donasi">Donasi</button>
+      <button class="tab" data-panel="donasi-peserta">Donasi Peserta</button>
+      <button class="tab" data-panel="rundown">Rundown</button>
+      <button class="tab" data-panel="info">Info Acara</button>
+      <button class="tab" data-panel="pembaruan">Pembaruan</button>
+      <button class="tab" data-panel="media">Flyer & Media</button>
+      <button class="tab" data-panel="preview">Preview</button>
+      <button class="tab" data-panel="laporan">Laporan</button>
+      <button class="tab" data-panel="github">GitHub</button>
+    </div>
+
+    <!-- PESERTA -->
+    <div id="panel-peserta" class="panel active">
+      <div class="card">
+        <h2>Tambah Peserta Baru</h2>
+        <div class="add-row">
+          <div style="flex:2"><label>Nama</label><input type="text" id="newNama" placeholder="Nama peserta"></div>
+          <div style="flex:1"><label>Bayar (Rp)</label><input type="number" id="newBayar" placeholder="50000" value="50000"></div>
+          <div style="flex:1"><label>Status</label><select id="newHadir"><option value="true">Hadir</option><option value="false">Tidak Hadir</option></select></div>
+          <div style="flex:0"><label>&nbsp;</label><button class="primary" onclick="addPeserta()">Tambah</button></div>
+        </div>
       </div>
-      <div>
-        <label>Owner</label>
-        <input id="owner" value="frmnsyahanggoro-ai" />
+      <div class="card">
+        <h2>Daftar Peserta (<span id="pesertaCount">0</span> orang)</h2>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th style="width:50px">No</th><th>Nama</th><th style="width:100px">Bayar</th><th style="width:90px">Status</th><th style="width:70px">Baru</th><th style="width:120px">Aksi</th></tr></thead>
+            <tbody id="pesertaTable"></tbody>
+          </table>
+        </div>
       </div>
-      <div>
-        <label>Repository</label>
-        <input id="repo" value="SENJAMANJA-9" />
+    </div>
+
+    <!-- TIDAK HADIR -->
+    <div id="panel-tidak-hadir" class="panel">
+      <div class="card">
+        <h2>Peserta Tidak Hadir (→ Donasi)</h2>
+        <p class="subtitle" style="margin-bottom:12px">Daftar peserta yang tidak hadir. Iuran mereka masuk ke donasi. Klik Edit di tab Peserta untuk ubah status.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th style="width:50px">No</th><th>Nama</th><th style="width:110px">Nominal</th><th style="width:100px">Ket</th></tr></thead>
+            <tbody id="tidakHadirTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PEMASUKAN -->
+    <div id="panel-pemasukan" class="panel">
+      <div class="card">
+        <h2>Rincian Pemasukan (Otomatis)</h2>
+        <p class="subtitle" style="margin-bottom:12px">Breakdown pemasukan dari data peserta dan donasi. Tidak perlu diedit manual.</p>
+        <div class="preview-box" id="pemasukanBox"></div>
+      </div>
+    </div>
+
+    <!-- PENGELUARAN -->
+    <div id="panel-pengeluaran" class="panel">
+      <div class="card">
+        <h2>Pengeluaran Acara</h2>
+        <div class="grid full">
+          <div><label>Rogo Music (Harga Asli) Rp</label><input type="number" id="rogoAsli" value="3300000"></div>
+          <div><label>Subsidi Teman-teman (Rp)</label><input type="number" id="rogoSubsidi" value="200000"></div>
+          <div><label>Jumlah Crew (orang)</label><input type="number" id="crewCount" value="13" min="0"></div>
+          <div><label>Honor Soundman (Rp)</label><input type="number" id="soundman" value="200000"></div>
+          <div><label>Takjil (Rp)</label><input type="number" id="takjil" value="1350000"></div>
+          <div><label>Cetak Sticker (Rp)</label><input type="number" id="sticker" value="280000"></div>
+          <div><label>Keperluan Lain-lain / Makan (Rp)</label><input type="number" id="keperluanLain" value="115000"></div>
+        </div>
+        <div class="btns"><button class="primary" onclick="saveData()">Simpan</button></div>
+      </div>
+    </div>
+
+    <!-- DONASI -->
+    <div id="panel-donasi" class="panel">
+      <div class="card">
+        <h2>Donasi Takjil</h2>
+        <div class="grid">
+          <div><label>Donasi Tunai (Rp)</label><input type="number" id="donasiTunai" value="520000"></div>
+          <div><label>Non-Tunai (keterangan)</label><input type="text" id="donasiNontunai" placeholder="50 pcs Kripik Usus" value="50 pcs Kripik Usus"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Donasi Luar Tiket</h2>
+        <div class="add-row">
+          <div style="flex:2"><label>Nama / Keterangan</label><input type="text" id="newDonasiNama" placeholder="Hamba Allah"></div>
+          <div style="flex:1"><label>Nominal (Rp)</label><input type="number" id="newDonasiNominal" placeholder="350000" value="0"></div>
+          <div style="flex:1"><label>Non-Tunai (opsional)</label><input type="text" id="newDonasiNontunai" placeholder="50 pcs Kripik Usus"></div>
+          <div style="flex:0"><label>&nbsp;</label><button class="primary" onclick="addDonasiLuar()">Tambah</button></div>
+        </div>
+        <div class="tbl-wrap" style="margin-top:16px">
+          <table>
+            <thead><tr><th>Nama</th><th style="width:120px">Nominal</th><th style="width:150px">Non-Tunai</th><th style="width:80px">Aksi</th></tr></thead>
+            <tbody id="donasiTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- DONASI PESERTA -->
+    <div id="panel-donasi-peserta" class="panel">
+      <div class="card">
+        <h2>Peserta Bayar Lebih dari Rp 50.000</h2>
+        <p class="subtitle" style="margin-bottom:12px">Otomatis dari data peserta. Untuk tampil di sini, peserta harus bayar &gt; Rp 50.000.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th style="width:50px">No</th><th>Nama</th><th style="width:120px">Nominal</th><th>Status</th></tr></thead>
+            <tbody id="donasiPesertaTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- RUNDOWN -->
+    <div id="panel-rundown" class="panel">
+      <div class="card">
+        <h2>Rundown Acara</h2>
+        <div class="add-row">
+          <div style="flex:1"><label>Waktu</label><input type="text" id="newRundownWaktu" placeholder="16.00 - 17.00"></div>
+          <div style="flex:2"><label>Kegiatan</label><input type="text" id="newRundownKegiatan" placeholder="Kumpul & Packing Takjil"></div>
+          <div style="flex:0"><label>&nbsp;</label><button class="primary" onclick="addRundown()">Tambah</button></div>
+        </div>
+        <div class="tbl-wrap" style="margin-top:16px">
+          <table>
+            <thead><tr><th style="width:140px">Waktu</th><th>Kegiatan</th><th style="width:80px">Aksi</th></tr></thead>
+            <tbody id="rundownTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- INFO ACARA -->
+    <div id="panel-info" class="panel">
+      <div class="card">
+        <h2>Info Acara</h2>
+        <div class="grid full">
+          <div><label>Nomor Event</label><input type="number" id="eventNumber" value="9"></div>
+          <div><label>Tanggal</label><input type="text" id="eventDate" placeholder="7 Maret 2026" value="7 Maret 2026"></div>
+          <div><label>Judul</label><input type="text" id="eventTitle" value="Senja Manja"></div>
+          <div><label>Subtitle</label><input type="text" id="eventSubtitle" value="Buka Bersama & Bagi Bagi Takjil"></div>
+          <div><label>Tagline</label><input type="text" id="eventTagline" value="Still Brotherhood & Keep Young"></div>
+          <div><label>Konsumsi per Orang (Rp)</label><input type="number" id="konsumsiPerOrang" value="30000"></div>
+        </div>
+        <div class="btns"><button class="primary" onclick="saveData()">Simpan</button></div>
+      </div>
+    </div>
+
+    <!-- PEMBARUAN -->
+    <div id="panel-pembaruan" class="panel">
+      <div class="card">
+        <h2>Catatan Pembaruan</h2>
+        <p class="subtitle" style="margin-bottom:12px">Teks untuk kotak pembaruan (update box) di halaman utama. Contoh: "Bisma (#97) ditambahkan • Soundman honor Rp 200.000 • Crew: 13 orang"</p>
+        <div><label>Teks Pembaruan</label><textarea id="updateNote" rows="4" placeholder="• Pembaruan: ..."></textarea></div>
+        <div class="btns"><button class="primary" onclick="saveData()">Simpan</button></div>
+      </div>
+    </div>
+
+    <!-- FLYER & MEDIA -->
+    <div id="panel-media" class="panel">
+      <div class="card">
+        <h2>Flyer & Media</h2>
+        <div class="grid full">
+          <div><label>URL Gambar Flyer</label><input type="url" id="flyerUrl" placeholder="https://... atau kosongkan jika pakai embed"></div>
+          <div><label>URL YouTube (Lagu Ramadhan)</label><input type="url" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=..." value="https://www.youtube.com/watch?v=WifNqQ8ZQ0M"></div>
+        </div>
+        <p class="subtitle" style="margin-top:8px;font-size:11px">Flyer: isi URL gambar atau biarkan kosong. YouTube: untuk musik latar di halaman.</p>
+        <div class="btns"><button class="primary" onclick="saveData()">Simpan</button></div>
+      </div>
+    </div>
+
+    <!-- PREVIEW -->
+    <div id="panel-preview" class="panel">
+      <div class="card">
+        <h2>Rekap Keuangan (Otomatis)</h2>
+        <div class="preview-box" id="previewBox"></div>
+        <div class="btns" style="margin-top:16px">
+          <button onclick="exportJson()">Export JSON</button>
+          <button onclick="document.getElementById('importFile').click()">Import JSON</button>
+          <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJson(event)">
+        </div>
+      </div>
+    </div>
+
+    <!-- LAPORAN -->
+    <div id="panel-laporan" class="panel">
+      <div class="card">
+        <h2>Laporan Lengkap</h2>
+        <p class="subtitle" style="margin-bottom:12px">Ringkasan lengkap untuk dicetak atau dibagikan.</p>
+        <div class="preview-box" id="laporanBox" style="max-height:400px;overflow-y:auto;white-space:pre-wrap;font-size:12px;line-height:1.6"></div>
+        <div class="btns">
+          <button onclick="window.print()">Cetak</button>
+          <button onclick="copyLaporan()">Salin ke Clipboard</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GITHUB -->
+    <div id="panel-github" class="panel">
+      <div class="gh-section">
+        <h2 style="margin-bottom:12px">Koneksi GitHub</h2>
+        <div class="grid full">
+          <div><label>GitHub Token (scope: repo)</label><input type="password" id="ghToken" placeholder="ghp_xxx..."></div>
+          <div><label>Owner</label><input type="text" id="ghOwner" value="frmnsyahanggoro-ai"></div>
+          <div><label>Repository</label><input type="text" id="ghRepo" value="SENJAMANJA-9"></div>
+        </div>
+        <p class="subtitle" style="margin:12px 0 0 0;font-size:11px">Token tidak disimpan. Hanya dipakai saat Load/Publish.</p>
+      </div>
+      <div class="card">
+        <h2>Data</h2>
+        <div class="btns">
+          <button class="primary" onclick="loadFromGitHub()">Load data.json dari GitHub</button>
+          <button class="primary" onclick="publishToGitHub()">Publish data.json ke GitHub</button>
+        </div>
+        <p class="subtitle" style="margin-top:12px;font-size:12px">Untuk update index.html, gunakan build script terpisah atau integrasi CI/CD.</p>
+      </div>
+      <div class="card">
+        <h2>Log</h2>
+        <div class="log" id="log">Siap.</div>
       </div>
     </div>
   </div>
 
-  <div class="card">
-    <div class="grid">
-      <div>
-        <label>Rogo Music (Harga Asli)</label>
-        <input id="rogoAsli" type="number" value="3300000" />
-      </div>
-      <div>
-        <label>Subsidi Teman-teman</label>
-        <input id="subsidi" type="number" value="200000" />
-      </div>
-      <div>
-        <label>Crew (orang)</label>
-        <input id="crew" type="number" value="13" />
-      </div>
-      <div>
-        <label>Honor Soundman</label>
-        <input id="soundman" type="number" value="200000" />
-      </div>
-      <div>
-        <label>Cetak Sticker</label>
-        <input id="sticker" type="number" value="280000" />
-      </div>
-      <div>
-        <label>Nama Peserta #97</label>
-        <input id="bisma" value="Bisma" />
-      </div>
-    </div>
+  <script>
+    let data = { meta: {}, peserta: [], pengeluaran: {}, donasiTakjil: {}, donasiLuarTiket: [], rundown: [] };
 
-    <div class="btns">
-      <button id="load">Load dari GitHub</button>
-      <button id="preview">Hitung Preview</button>
-      <button id="publish" class="primary">Publish ke GitHub</button>
-    </div>
-  </div>
+    const el = id => document.getElementById(id);
+    const log = (msg, type = '') => {
+      const l = el('log');
+      if (l) l.innerHTML += '\n' + (type ? `<span class="${type}">${msg}</span>` : msg);
+      if (l) l.scrollTop = l.scrollHeight;
+    };
+    const setLog = (msg) => { if (el('log')) el('log').innerHTML = msg; };
 
-  <div class="card">
-    <div id="previewBox" class="small">Preview belum dihitung.</div>
-  </div>
+    function rupiah(n) {
+      const v = Math.round(Number(n) || 0);
+      return 'Rp ' + v.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
 
-  <div class="card">
-    <div id="log" class="log">Log siap.</div>
-  </div>
-</div>
+    function calc() {
+      const p = data.peserta || [];
+      const hadir = p.filter(x => x.hadir);
+      const tdkHadir = p.filter(x => !x.hadir);
+      const konsumsi = data.meta.konsumsiPerOrang || 30000;
 
-<script>
-const pemasukan = 8572500;
-const konsumsiPeserta = 2820000;
-const takjil = 1350000;
-const lainMakan = 115000;
+      const subtotalA = hadir.reduce((s, x) => s + (x.bayar || 0), 0);
+      const subtotalB = tdkHadir.reduce((s, x) => s + (x.bayar || 0), 0);
+      const subtotalC = (data.donasiTakjil?.tunai || 0);
+      const totalPemasukan = subtotalA + subtotalB + subtotalC;
 
-const el = (id) => document.getElementById(id);
-const log = (msg) => el('log').textContent += "\n" + msg;
-const setLog = (msg) => el('log').textContent = msg;
+      const pe = data.pengeluaran || {};
+      const rogoNet = (pe.rogoMusicAsli || 0) - (pe.rogoSubsidi || 0);
+      const konsumsiPeserta = hadir.length * konsumsi;
+      const konsumsiCrew = (pe.crewCount || 0) * konsumsi;
+      const subtotalAcara = rogoNet + konsumsiPeserta + konsumsiCrew + (pe.soundman || 0);
+      const totalPengeluaran = subtotalAcara + (pe.takjil || 0) + (pe.sticker || 0);
+      const sisaAwal = totalPemasukan - totalPengeluaran;
+      const danaDarurat = sisaAwal - (pe.keperluanLain || 0);
 
-function rupiah(n){
-  const v = Math.round(Number(n)||0);
-  return 'Rp ' + v.toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.');
-}
+      return {
+        totalPeserta: p.length,
+        hadir: hadir.length,
+        tdkHadir: tdkHadir.length,
+        subtotalA, subtotalB, subtotalC,
+        totalPemasukan,
+        rogoNet, konsumsiPeserta, konsumsiCrew, subtotalAcara,
+        totalPengeluaran, sisaAwal, danaDarurat,
+        keperluanLain: pe.keperluanLain || 0
+      };
+    }
 
-function calc(){
-  const rogoAsli = Number(el('rogoAsli').value||0);
-  const subsidi = Number(el('subsidi').value||0);
-  const crew = Number(el('crew').value||0);
-  const soundman = Number(el('soundman').value||0);
-  const sticker = Number(el('sticker').value||0);
+    function renderPreview() {
+      const c = calc();
+      const box = el('previewBox');
+      if (!box) return;
+      box.innerHTML = `
+        <div class="row"><span>Total Peserta</span><span class="val">${c.totalPeserta} orang</span></div>
+        <div class="row"><span>Yang Hadir</span><span class="val">${c.hadir} orang</span></div>
+        <div class="row"><span>Tidak Hadir</span><span class="val">${c.tdkHadir} orang</span></div>
+        <div class="row income"><span>Total Pemasukan</span><span class="val">${rupiah(c.totalPemasukan)}</span></div>
+        <div class="row expense"><span>Total Pengeluaran</span><span class="val">${rupiah(c.totalPengeluaran)}</span></div>
+        <div class="row"><span>Sisa Awal</span><span class="val">${rupiah(c.sisaAwal)}</span></div>
+        <div class="row expense"><span>Keperluan Lain</span><span class="val">- ${rupiah(c.keperluanLain)}</span></div>
+        <div class="row total"><span>Dana Darurat (Sisa Akhir)</span><span class="val">${rupiah(c.danaDarurat)}</span></div>
+      `;
+    }
 
-  const rogoNet = rogoAsli - subsidi;
-  const crewVal = crew * 30000;
-  const subtotalAcara = rogoNet + konsumsiPeserta + crewVal + soundman;
-  const totalPengeluaran = subtotalAcara + takjil + sticker;
-  const sisaAwal = pemasukan - totalPengeluaran;
-  const danaDarurat = sisaAwal - lainMakan;
+    function renderPeserta() {
+      const tbody = el('pesertaTable');
+      const p = data.peserta || [];
+      el('pesertaCount').textContent = p.length;
+      tbody.innerHTML = p.map((x, i) => `
+        <tr>
+          <td>${x.no}</td>
+          <td>${x.nama}${x.baru ? ' <span class="badge badge-new">BARU</span>' : ''}</td>
+          <td>${rupiah(x.bayar)}</td>
+          <td><span class="badge badge-${x.hadir ? 'ok' : 'no'}">${x.hadir ? 'Hadir' : 'Tidak Hadir'}</span></td>
+          <td><input type="checkbox" ${x.baru ? 'checked' : ''} onchange="toggleBaru(${i})"></td>
+          <td>
+            <button class="small" onclick="editPeserta(${i})">Edit</button>
+            <button class="small danger" onclick="delPeserta(${i})">Hapus</button>
+          </td>
+        </tr>
+      `).join('');
+    }
 
-  return {rogoAsli, subsidi, crew, soundman, sticker, rogoNet, crewVal, subtotalAcara, totalPengeluaran, sisaAwal, danaDarurat};
-}
+    function renderDonasi() {
+      const tbody = el('donasiTable');
+      const d = data.donasiLuarTiket || [];
+      tbody.innerHTML = d.length ? d.map((x, i) => `
+        <tr>
+          <td>${x.nama}</td>
+          <td>${x.nontunai ? '—' : rupiah(x.nominal)}</td>
+          <td>${x.nontunai || '—'}</td>
+          <td><button class="small danger" onclick="delDonasi(${i})">Hapus</button></td>
+        </tr>
+      `).join('') : '<tr><td colspan="4" class="empty-msg">Belum ada donasi luar tiket.</td></tr>';
+    }
 
-function renderPreview(){
-  const c = calc();
-  el('previewBox').innerHTML = `
-    <b>Total Pengeluaran:</b> ${rupiah(c.totalPengeluaran)}<br>
-    <b>Sisa Awal:</b> ${rupiah(c.sisaAwal)}<br>
-    <b>Dana Darurat:</b> ${rupiah(c.danaDarurat)}<br>
-    <span class="warn">Rogo Net = ${rupiah(c.rogoNet)} | Crew ${c.crew} org = ${rupiah(c.crewVal)}</span>
-  `;
-}
+    function renderRundown() {
+      const tbody = el('rundownTable');
+      const r = data.rundown || [];
+      tbody.innerHTML = r.length ? r.map((x, i) => `
+        <tr>
+          <td>${x.waktu}</td>
+          <td>${x.kegiatan}</td>
+          <td><button class="small danger" onclick="delRundown(${i})">Hapus</button></td>
+        </tr>
+      `).join('') : '<tr><td colspan="3" class="empty-msg">Belum ada rundown.</td></tr>';
+    }
 
-function replaceOrThrow(html, regex, replacer, label){
-  if(!regex.test(html)) throw new Error('Pattern tidak ketemu: '+label);
-  return html.replace(regex, replacer);
-}
+    function loadFromForm() {
+      data.meta = data.meta || {};
+      data.meta.eventNumber = Number(el('eventNumber')?.value) || 9;
+      data.meta.title = el('eventTitle')?.value || 'Senja Manja';
+      data.meta.subtitle = el('eventSubtitle')?.value || '';
+      data.meta.date = el('eventDate')?.value || '';
+      data.meta.tagline = el('eventTagline')?.value || '';
+      data.meta.konsumsiPerOrang = Number(el('konsumsiPerOrang')?.value) || 30000;
+      data.meta.updateNote = el('updateNote')?.value || '';
+      data.meta.flyerUrl = el('flyerUrl')?.value || '';
+      data.meta.youtubeUrl = el('youtubeUrl')?.value || '';
+      data.pengeluaran = {
+        rogoMusicAsli: Number(el('rogoAsli')?.value) || 0,
+        rogoSubsidi: Number(el('rogoSubsidi')?.value) || 0,
+        crewCount: Number(el('crewCount')?.value) || 0,
+        soundman: Number(el('soundman')?.value) || 0,
+        takjil: Number(el('takjil')?.value) || 0,
+        sticker: Number(el('sticker')?.value) || 0,
+        keperluanLain: Number(el('keperluanLain')?.value) || 0
+      };
+      data.donasiTakjil = {
+        tunai: Number(el('donasiTunai')?.value) || 0,
+        nontunai: el('donasiNontunai')?.value || ''
+      };
+    }
 
-function updateHtml(html){
-  const c = calc();
-  const bisma = (el('bisma').value || 'Bisma').trim();
+    function saveToForm() {
+      data.peserta = data.peserta || [];
+      data.peserta.forEach((p, i) => { p.no = i + 1; });
+      if (el('eventNumber')) el('eventNumber').value = data.meta?.eventNumber || 9;
+      if (el('eventTitle')) el('eventTitle').value = data.meta?.title || '';
+      if (el('eventSubtitle')) el('eventSubtitle').value = data.meta?.subtitle || '';
+      if (el('eventDate')) el('eventDate').value = data.meta?.date || '';
+      if (el('eventTagline')) el('eventTagline').value = data.meta?.tagline || '';
+      if (el('konsumsiPerOrang')) el('konsumsiPerOrang').value = data.meta?.konsumsiPerOrang || 30000;
+      const pe = data.pengeluaran || {};
+      if (el('rogoAsli')) el('rogoAsli').value = pe.rogoMusicAsli || 0;
+      if (el('rogoSubsidi')) el('rogoSubsidi').value = pe.rogoSubsidi || 0;
+      if (el('crewCount')) el('crewCount').value = pe.crewCount || 0;
+      if (el('soundman')) el('soundman').value = pe.soundman || 0;
+      if (el('takjil')) el('takjil').value = pe.takjil || 0;
+      if (el('sticker')) el('sticker').value = pe.sticker || 0;
+      if (el('keperluanLain')) el('keperluanLain').value = pe.keperluanLain || 0;
+      const dt = data.donasiTakjil || {};
+      if (el('donasiTunai')) el('donasiTunai').value = dt.tunai || 0;
+      if (el('donasiNontunai')) el('donasiNontunai').value = dt.nontunai || '';
+      if (el('updateNote')) el('updateNote').value = data.meta?.updateNote || '';
+      if (el('flyerUrl')) el('flyerUrl').value = data.meta?.flyerUrl || '';
+      if (el('youtubeUrl')) el('youtubeUrl').value = data.meta?.youtubeUrl || 'https://www.youtube.com/watch?v=WifNqQ8ZQ0M';
+    }
 
-  const rogoBlock = [
-    `<tr><td><strong style="color:var(--gold2)">Rogo Music</strong> <span style="font-size:9px;color:var(--text2)">(harga asli)</span></td><td></td><td class="td-right" style="color:var(--text2);text-decoration:line-through">${rupiah(c.rogoAsli)}</td></tr>`,
-    `        <tr><td style="padding-left:28px;color:var(--green)">&#8627; Subsidi dari teman-teman</td><td class="td-center" style="color:var(--green)">Donasi</td><td class="td-right" style="color:var(--green)">− ${rupiah(c.subsidi).replace('Rp ','Rp ')}</td></tr>`,
-    `        <tr><td><strong style="color:var(--gold2)">Rogo Music</strong> <span style="font-size:9px;color:var(--gold)">setelah subsidi</span></td><td></td><td class="td-right">${rupiah(c.rogoNet)}</td></tr>`,
-    `        <tr class="row-group"><td colspan="3">Konsumsi Peserta &amp; Crew</td></tr>`
-  ].join('\n');
+    function renderTidakHadir() {
+      const tbody = el('tidakHadirTable');
+      const list = (data.peserta || []).filter(x => !x.hadir);
+      tbody.innerHTML = list.length ? list.map((x, i) => `
+        <tr>
+          <td>#${x.no}</td>
+          <td>${x.nama}</td>
+          <td>${rupiah(x.bayar)}</td>
+          <td><span class="badge badge-no">→ Donasi</span></td>
+        </tr>
+      `).join('') : '<tr><td colspan="4" class="empty-msg">Tidak ada peserta tidak hadir.</td></tr>';
+    }
 
-  html = replaceOrThrow(
-    html,
-    /<tr><td><strong style="color:var\(--gold2\)">Rogo Music<\/strong>[\s\S]*?<tr class="row-group"><td colspan="3">Konsumsi Peserta &amp; Crew<\/td><\/tr>/,
-    rogoBlock,
-    'Rogo block'
-  );
+    function renderPemasukan() {
+      const box = el('pemasukanBox');
+      if (!box) return;
+      const c = calc();
+      const p = data.peserta || [];
+      const hadir = p.filter(x => x.hadir);
+      const tdkHadir = p.filter(x => !x.hadir);
+      const byAmount = (arr) => {
+        const m = {};
+        arr.forEach(x => { m[x.bayar] = (m[x.bayar]||0) + 1; });
+        return Object.entries(m).sort((a,b) => b[0]-a[0]);
+      };
+      let html = '<div class="row"><span><strong>A. Iuran Peserta Hadir ('+hadir.length+' orang)</strong></span><span></span></div>';
+      byAmount(hadir).forEach(([amt, cnt]) => { html += `<div class="row"><span>${rupiah(amt)} × ${cnt} orang</span><span class="val">${rupiah(amt*cnt)}</span></div>`; });
+      html += `<div class="row"><span>Subtotal A</span><span class="val">${rupiah(c.subtotalA)}</span></div>`;
+      html += '<div class="row" style="margin-top:12px"><span><strong>B. Iuran Tidak Hadir → Donasi</strong></span><span></span></div>';
+      byAmount(tdkHadir).forEach(([amt, cnt]) => { html += `<div class="row"><span>${rupiah(amt)} × ${cnt} orang</span><span class="val">${rupiah(amt*cnt)}</span></div>`; });
+      html += `<div class="row"><span>Subtotal B</span><span class="val">${rupiah(c.subtotalB)}</span></div>`;
+      html += '<div class="row" style="margin-top:12px"><span><strong>C. Donasi Takjil</strong></span><span></span></div>';
+      html += `<div class="row"><span>Tunai</span><span class="val">${rupiah(c.subtotalC)}</span></div>`;
+      html += `<div class="row total"><span>TOTAL PEMASUKAN</span><span class="val">${rupiah(c.totalPemasukan)}</span></div>`;
+      box.innerHTML = html;
+    }
 
-  html = replaceOrThrow(
-    html,
-    /<tr class="row-update"><td style="padding-left:28px">Crew <span class="badge badge-donasi" style="margin-left:6px;font-size:8px">UPDATE: \d+ org<\/span><\/td><td class="td-center" style="color:var\(--text2\)">\d+ org &times; Rp 30\.000<\/td><td class="td-right" style="color:var\(--gold2\)">Rp [\d\.]+<\/td><\/tr>/,
-    `<tr class="row-update"><td style="padding-left:28px">Crew <span class="badge badge-donasi" style="margin-left:6px;font-size:8px">UPDATE: ${c.crew} org</span></td><td class="td-center" style="color:var(--text2)">${c.crew} org &times; Rp 30.000</td><td class="td-right" style="color:var(--gold2)">${rupiah(c.crewVal)}</td></tr>`,
-    'Crew row'
-  );
+    function renderDonasiPeserta() {
+      const tbody = el('donasiPesertaTable');
+      const list = (data.peserta || []).filter(x => (x.bayar || 0) > 50000).sort((a,b) => (b.bayar||0) - (a.bayar||0));
+      tbody.innerHTML = list.length ? list.map((x, i) => `
+        <tr>
+          <td>${i+1}</td>
+          <td>${x.nama}</td>
+          <td>${rupiah(x.bayar)}</td>
+          <td><span class="badge badge-${x.hadir ? 'ok' : 'no'}">${x.hadir ? 'Hadir' : 'Tidak Hadir'}</span></td>
+        </tr>
+      `).join('') : '<tr><td colspan="4" class="empty-msg">Belum ada peserta bayar &gt; Rp 50.000.</td></tr>';
+    }
 
-  html = replaceOrThrow(
-    html,
-    /<tr class="row-new"><td><strong style="color:var\(--blue\)">Soundman<\/strong> <span class="badge badge-baru" style="margin-left:6px">BARU<\/span><\/td><td class="td-center" style="color:var\(--text2\)">Honor<\/td><td class="td-right" style="color:var\(--blue\)">Rp [\d\.]+<\/td><\/tr>/,
-    `<tr class="row-new"><td><strong style="color:var(--blue)">Soundman</strong> <span class="badge badge-baru" style="margin-left:6px">BARU</span></td><td class="td-center" style="color:var(--text2)">Honor</td><td class="td-right" style="color:var(--blue)">${rupiah(c.soundman)}</td></tr>`,
-    'Soundman row'
-  );
+    function renderLaporan() {
+      const box = el('laporanBox');
+      if (!box) return;
+      const c = calc();
+      const m = data.meta || {};
+      let txt = `SENJA MANJA #${m.eventNumber || 9} - LAPORAN KEUANGAN\n`;
+      txt += `${m.tagline || ''}\n`;
+      txt += `${m.title || 'Senja Manja'} - ${m.subtitle || ''} • ${m.date || ''}\n\n`;
+      txt += `══════════════════════════════════════\n`;
+      txt += `REKAP PESERTA\n`;
+      txt += `Total Iuran: ${c.totalPeserta} orang\n`;
+      txt += `Yang Hadir: ${c.hadir} orang\n`;
+      txt += `Tidak Hadir: ${c.tdkHadir} orang → Donasi\n\n`;
+      txt += `══════════════════════════════════════\n`;
+      txt += `PEMASUKAN\n`;
+      txt += `Total Pemasukan: ${rupiah(c.totalPemasukan)}\n\n`;
+      txt += `══════════════════════════════════════\n`;
+      txt += `PENGELUARAN\n`;
+      txt += `Total Pengeluaran: ${rupiah(c.totalPengeluaran)}\n\n`;
+      txt += `══════════════════════════════════════\n`;
+      txt += `REKAP FINAL\n`;
+      txt += `Sisa Awal: ${rupiah(c.sisaAwal)}\n`;
+      txt += `Keperluan Lain: - ${rupiah(c.keperluanLain)}\n`;
+      txt += `Dana Darurat: ${rupiah(c.danaDarurat)}\n\n`;
+      txt += `──────────────────────────────────────\n`;
+      txt += `${m.title || 'Senja Manja'} • Est. 2017 • ${m.date || ''}\n`;
+      box.textContent = txt;
+    }
 
-  html = replaceOrThrow(
-    html,
-    /<tr class="row-subtotal"><td colspan="2">Subtotal Acara<\/td><td class="td-right">Rp [\d\.]+<\/td><\/tr>/,
-    `<tr class="row-subtotal"><td colspan="2">Subtotal Acara</td><td class="td-right">${rupiah(c.subtotalAcara)}</td></tr>`,
-    'Subtotal acara'
-  );
+    function copyLaporan() {
+      const box = el('laporanBox');
+      if (!box) return;
+      navigator.clipboard.writeText(box.textContent).then(() => alert('Laporan disalin ke clipboard.')).catch(() => alert('Gagal menyalin.'));
+    }
 
-  html = replaceOrThrow(
-    html,
-    /<tr class="row-new"><td><strong style="color:var\(--blue\)">Cetak Sticker<\/strong> <span class="badge badge-baru" style="margin-left:6px">BARU<\/span><\/td><td class="td-center" style="color:var\(--text2\)">3 Meter<\/td><td class="td-right" style="color:var\(--blue\)">Rp [\d\.]+<\/td><\/tr>/,
-    `<tr class="row-new"><td><strong style="color:var(--blue)">Cetak Sticker</strong> <span class="badge badge-baru" style="margin-left:6px">BARU</span></td><td class="td-center" style="color:var(--text2)">3 Meter</td><td class="td-right" style="color:var(--blue)">${rupiah(c.sticker)}</td></tr>`,
-    'Sticker row'
-  );
+    function saveData() {
+      loadFromForm();
+      localStorage.setItem('senja_manja_data', JSON.stringify(data));
+      renderPeserta();
+      renderTidakHadir();
+      renderPemasukan();
+      renderDonasi();
+      renderDonasiPeserta();
+      renderRundown();
+      renderPreview();
+      renderLaporan();
+      alert('Data disimpan.');
+    }
 
-  html = html.replace(/<span class="section-count">Rp [\d\.]+<\/span>(?=[\s\S]*?<div class="table-wrap">[\s\S]*?<tr class="row-total"><td colspan="2">TOTAL PENGELUARAN<\/td>)/, `<span class="section-count">${rupiah(c.totalPengeluaran)}</span>`);
-  html = html.replace(/<tr class="row-total"><td colspan="2">TOTAL PENGELUARAN<\/td><td class="td-right">Rp [\d\.]+<\/td><\/tr>/, `<tr class="row-total"><td colspan="2">TOTAL PENGELUARAN</td><td class="td-right">${rupiah(c.totalPengeluaran)}</td></tr>`);
-  html = html.replace(/<div class="fc-label">Total Pengeluaran<\/div>\s*<div class="fc-val">Rp [\d\.]+<\/div>/, `<div class="fc-label">Total Pengeluaran</div>\n      <div class="fc-val">${rupiah(c.totalPengeluaran)}</div>`);
-  html = html.replace(/<span class="rl">Total Pengeluaran<\/span><span class="rv">- Rp [\d\.]+<\/span>/, `<span class="rl">Total Pengeluaran</span><span class="rv">- ${rupiah(c.totalPengeluaran)}</span>`);
-  html = html.replace(/<span class="rl">Sisa Awal<\/span><span class="rv">Rp [\d\.]+<\/span>/, `<span class="rl">Sisa Awal</span><span class="rv">${rupiah(c.sisaAwal)}</span>`);
-  html = html.replace(/<span class="rl">Dana Darurat \(Sisa Akhir\)<\/span><span class="rv">Rp [\d\.]+<\/span>/, `<span class="rl">Dana Darurat (Sisa Akhir)</span><span class="rv">${rupiah(c.danaDarurat)}</span>`);
+    function addPeserta() {
+      loadFromForm();
+      const nama = (el('newNama')?.value || '').trim();
+      if (!nama) { alert('Nama wajib diisi.'); return; }
+      const no = (data.peserta?.length || 0) + 1;
+      data.peserta.push({
+        no: no,
+        nama: nama,
+        bayar: Number(el('newBayar')?.value) || 50000,
+        hadir: el('newHadir')?.value === 'true',
+        baru: true
+      });
+      el('newNama').value = '';
+      el('newBayar').value = '50000';
+      saveData();
+    }
 
-  html = html.replace(/<div class="update-box">[\s\S]*?<\/div>/, `<div class="update-box">\n  &#9679; <strong>Pembaruan:</strong> Bisma (#97) ditambahkan &bull; Soundman honor ${rupiah(c.soundman)} &bull;\n  Crew: 12 &rarr; <strong>${c.crew} orang</strong> &bull; Total Pengeluaran: Rp 7.570.000 &rarr; <strong>${rupiah(c.totalPengeluaran)}</strong> &bull;\n  Dana Darurat: Rp 687.500 &rarr; <strong>${rupiah(c.danaDarurat)}</strong> &bull; Cetak Sticker 3m ${rupiah(c.sticker)}\n</div>`);
+    function editPeserta(i) {
+      const p = data.peserta[i];
+      const nama = prompt('Nama:', p.nama);
+      if (nama === null) return;
+      const bayar = prompt('Bayar (Rp):', p.bayar);
+      if (bayar === null) return;
+      const hadir = confirm('Hadir? (OK=Hadir, Cancel=Tidak Hadir)');
+      p.nama = nama.trim();
+      p.bayar = Number(bayar) || 50000;
+      p.hadir = hadir;
+      saveData();
+    }
 
-  html = html.replace(/<tr><td>97<\/td><td>[^<]+<span class="badge badge-baru" style="margin-left:4px">BARU<\/span><\/td>/, `<tr><td>97</td><td>${bisma} <span class="badge badge-baru" style="margin-left:4px">BARU</span></td>`);
+    function delPeserta(i) {
+      if (!confirm('Hapus peserta ini?')) return;
+      data.peserta.splice(i, 1);
+      data.peserta.forEach((p, j) => p.no = j + 1);
+      saveData();
+    }
 
-  return html;
-}
+    function toggleBaru(i) {
+      data.peserta[i].baru = !data.peserta[i].baru;
+      renderPeserta();
+      localStorage.setItem('senja_manja_data', JSON.stringify(data));
+    }
 
-async function ghReq(url, opts={}){
-  const token = el('token').value.trim();
-  if(!token) throw new Error('Token wajib diisi');
-  const headers = { 'Authorization': 'token '+token, 'Accept':'application/vnd.github+json', ...opts.headers };
-  const res = await fetch(url, { ...opts, headers });
-  if(!res.ok) throw new Error(`GitHub API ${res.status}: ${await res.text()}`);
-  return res.json();
-}
+    function addDonasiLuar() {
+      loadFromForm();
+      const nama = (el('newDonasiNama')?.value || '').trim();
+      if (!nama) { alert('Nama wajib diisi.'); return; }
+      const nominal = Number(el('newDonasiNominal')?.value) || 0;
+      const nontunai = (el('newDonasiNontunai')?.value || '').trim();
+      data.donasiLuarTiket = data.donasiLuarTiket || [];
+      data.donasiLuarTiket.push({ nama, nominal, nontunai: nontunai || null });
+      el('newDonasiNama').value = '';
+      el('newDonasiNominal').value = '0';
+      el('newDonasiNontunai').value = '';
+      saveData();
+    }
 
-async function loadCurrent(){
-  setLog('Load dari GitHub...');
-  const owner = el('owner').value.trim();
-  const repo = el('repo').value.trim();
-  const data = await ghReq(`https://api.github.com/repos/${owner}/${repo}/contents/index.html`);
-  const html = atob(data.content.replace(/\n/g,''));
+    function delDonasi(i) {
+      if (!confirm('Hapus donasi ini?')) return;
+      data.donasiLuarTiket.splice(i, 1);
+      saveData();
+    }
 
-  const mRogoAsli = html.match(/Rogo Music<\/strong> <span style="font-size:9px;color:var\(--text2\)">\(harga asli\)<\/span><\/td><td><\/td><td class="td-right" style="color:var\(--text2\);text-decoration:line-through">Rp ([\d\.]+)/);
-  const mSubsidi = html.match(/Subsidi dari teman-teman[\s\S]*?− Rp ([\d\.]+)/);
-  const mCrew = html.match(/UPDATE: (\d+) org/);
-  const mSound = html.match(/Soundman<\/strong>[\s\S]*?style="color:var\(--blue\)">Rp ([\d\.]+)/);
-  const mSticker = html.match(/Cetak Sticker<\/strong>[\s\S]*?style="color:var\(--blue\)">Rp ([\d\.]+)/);
-  const mBisma = html.match(/<tr><td>97<\/td><td>(.*?) <span class="badge badge-baru"/);
+    function addRundown() {
+      loadFromForm();
+      const waktu = (el('newRundownWaktu')?.value || '').trim();
+      const kegiatan = (el('newRundownKegiatan')?.value || '').trim();
+      if (!waktu || !kegiatan) { alert('Waktu dan kegiatan wajib diisi.'); return; }
+      data.rundown = data.rundown || [];
+      data.rundown.push({ waktu, kegiatan });
+      el('newRundownWaktu').value = '';
+      el('newRundownKegiatan').value = '';
+      saveData();
+    }
 
-  const toNum = (s) => Number((s||'0').replace(/\./g,''));
-  if(mRogoAsli) el('rogoAsli').value = toNum(mRogoAsli[1]);
-  if(mSubsidi) el('subsidi').value = toNum(mSubsidi[1]);
-  if(mCrew) el('crew').value = Number(mCrew[1]);
-  if(mSound) el('soundman').value = toNum(mSound[1]);
-  if(mSticker) el('sticker').value = toNum(mSticker[1]);
-  if(mBisma) el('bisma').value = mBisma[1].trim();
+    function delRundown(i) {
+      if (!confirm('Hapus item rundown ini?')) return;
+      data.rundown.splice(i, 1);
+      saveData();
+    }
 
-  renderPreview();
-  log('Load selesai.');
-}
+    function exportJson() {
+      loadFromForm();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'senja_manja_data.json';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
 
-async function publish(){
-  setLog('Publish dimulai...');
-  const owner = el('owner').value.trim();
-  const repo = el('repo').value.trim();
+    function importJson(ev) {
+      const f = ev.target.files[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = () => {
+        try {
+          data = JSON.parse(r.result);
+          saveToForm();
+          renderPeserta();
+          renderTidakHadir();
+          renderPemasukan();
+          renderDonasi();
+          renderDonasiPeserta();
+          renderRundown();
+          renderPreview();
+          renderLaporan();
+          localStorage.setItem('senja_manja_data', JSON.stringify(data));
+          alert('Import berhasil.');
+        } catch (e) {
+          alert('Import gagal: ' + e.message);
+        }
+      };
+      r.readAsText(f);
+      ev.target.value = '';
+    }
 
-  const current = await ghReq(`https://api.github.com/repos/${owner}/${repo}/contents/index.html`);
-  const html = atob(current.content.replace(/\n/g,''));
-  const updated = updateHtml(html);
+    async function ghReq(url, opts = {}) {
+      const token = el('ghToken')?.value?.trim();
+      if (!token) throw new Error('Token wajib diisi');
+      const headers = { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json', ...opts.headers };
+      const res = await fetch(url, { ...opts, headers });
+      if (!res.ok) throw new Error(`GitHub API ${res.status}: ${await res.text()}`);
+      return res.json();
+    }
 
-  const encoder = new TextEncoder();
-  const bytes = encoder.encode(updated);
-  let binary = '';
-  bytes.forEach(b => binary += String.fromCharCode(b));
-  const contentB64 = btoa(binary);
+    async function loadFromGitHub() {
+      setLog('Load dari GitHub...');
+      try {
+        const owner = el('ghOwner')?.value?.trim() || 'frmnsyahanggoro-ai';
+        const repo = el('ghRepo')?.value?.trim() || 'SENJAMANJA-9';
+        const r = await ghReq(`https://api.github.com/repos/${owner}/${repo}/contents/data.json`);
+        if (!r.content) throw new Error('File tidak ditemukan');
+        data = JSON.parse(atob(r.content.replace(/\n/g, '')));
+        saveToForm();
+        renderPeserta();
+        renderTidakHadir();
+        renderPemasukan();
+        renderDonasi();
+        renderDonasiPeserta();
+        renderRundown();
+        renderPreview();
+        renderLaporan();
+        localStorage.setItem('senja_manja_data', JSON.stringify(data));
+        log('Load selesai.', 'ok');
+      } catch (e) {
+        log('ERROR: ' + e.message, 'err');
+        if (e.message.includes('404')) log('Tip: data.json mungkin belum ada di repo. Buat file dulu atau gunakan Import JSON.', 'warn');
+      }
+    }
 
-  const body = {
-    message: 'Admin update: nilai keuangan & peserta',
-    content: contentB64,
-    sha: current.sha
-  };
+    async function publishToGitHub() {
+      setLog('Publish ke GitHub...');
+      try {
+        loadFromForm();
+        const owner = el('ghOwner')?.value?.trim() || 'frmnsyahanggoro-ai';
+        const repo = el('ghRepo')?.value?.trim() || 'SENJAMANJA-9';
+        const content = JSON.stringify(data, null, 2);
+        const contentB64 = btoa(unescape(encodeURIComponent(content)));
 
-  await ghReq(`https://api.github.com/repos/${owner}/${repo}/contents/index.html`, {
-    method: 'PUT',
-    headers: { 'Content-Type':'application/json' },
-    body: JSON.stringify(body)
-  });
+        let sha = null;
+        try {
+          const r = await ghReq(`https://api.github.com/repos/${owner}/${repo}/contents/data.json`);
+          sha = r.sha;
+        } catch (_) {}
 
-  renderPreview();
-  log('Publish sukses. Tunggu 30-90 detik sampai GitHub Pages refresh.');
-}
+        const body = {
+          message: 'Admin update: data Senja Manja #9',
+          content: contentB64,
+          ...(sha && { sha })
+        };
 
-el('preview').addEventListener('click', renderPreview);
-el('load').addEventListener('click', () => loadCurrent().catch(e => { log('ERROR: '+e.message); }));
-el('publish').addEventListener('click', () => publish().catch(e => { log('ERROR: '+e.message); }));
+        await ghReq(`https://api.github.com/repos/${owner}/${repo}/contents/data.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
 
-renderPreview();
-</script>
+        log('Publish sukses. Tunggu 30-90 detik sampai GitHub Pages refresh.');
+        log('Catatan: index.html perlu diupdate terpisah. Gunakan build script atau integrasi manual.', 'warn');
+      } catch (e) {
+        log('ERROR: ' + e.message, 'err');
+      }
+    }
+
+    async function loadFromFile() {
+      try {
+        const r = await fetch('data.json');
+        if (r.ok) {
+          data = await r.json();
+          saveToForm();
+      renderPeserta();
+      renderTidakHadir();
+      renderPemasukan();
+      renderDonasi();
+      renderDonasiPeserta();
+      renderRundown();
+      renderPreview();
+      renderLaporan();
+      return;
+        }
+      } catch (_) {}
+      const saved = localStorage.getItem('senja_manja_data');
+      if (saved) {
+        data = JSON.parse(saved);
+        saveToForm();
+      }
+      renderPeserta();
+      renderTidakHadir();
+      renderPemasukan();
+      renderDonasi();
+      renderDonasiPeserta();
+      renderRundown();
+      renderPreview();
+      renderLaporan();
+    }
+
+    document.querySelectorAll('.tab').forEach(t => {
+      t.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+        el('panel-' + t.dataset.panel)?.classList.add('active');
+        const p = t.dataset.panel;
+        if (p === 'preview') renderPreview();
+        else if (p === 'tidak-hadir') renderTidakHadir();
+        else if (p === 'pemasukan') renderPemasukan();
+        else if (p === 'donasi-peserta') renderDonasiPeserta();
+        else if (p === 'laporan') renderLaporan();
+      });
+    });
+
+    document.querySelectorAll('#panel-pengeluaran input, #panel-donasi input, #panel-info input').forEach(inp => {
+      inp.addEventListener('change', () => { loadFromForm(); renderPreview(); });
+    });
+
+    loadFromFile();
+  </script>
 </body>
 </html>
