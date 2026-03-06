@@ -87,10 +87,27 @@
     .add-row input { flex: 1; }
     
     .empty-msg { color: var(--muted); font-size: 13px; padding: 16px; text-align: center; }
+    
+    .login-overlay { position:fixed; inset:0; background:var(--bg); z-index:9999; display:flex; align-items:center; justify-content:center; }
+    .login-box { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:32px; width:100%; max-width:340px; text-align:center; }
+    .login-box h2 { margin:0 0 8px; font-size:20px; color:var(--gold); }
+    .login-box p { color:var(--muted); font-size:12px; margin-bottom:20px; }
+    .login-box input { margin-bottom:12px; text-align:center; font-size:18px; letter-spacing:4px; }
+    .login-box .err { color:var(--err); font-size:12px; margin-top:8px; display:none; }
+    .login-box .err.show { display:block; }
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <div id="loginOverlay" class="login-overlay">
+    <div class="login-box">
+      <h2>Admin Senja Manja #9</h2>
+      <p>Masukkan password untuk melanjutkan</p>
+      <input type="password" id="loginPassword" placeholder="Password" maxlength="20" autocomplete="off">
+      <div><button class="primary" onclick="checkLogin()" style="width:100%">Masuk</button></div>
+      <div id="loginErr" class="err">Password salah.</div>
+    </div>
+  </div>
+  <div class="wrap" id="adminContent" style="display:none">
     <h1>Admin Panel Senja Manja #9</h1>
     <p class="subtitle">Kelola peserta, pengeluaran, donasi, dan publish ke GitHub. Semua perhitungan otomatis. <span style="color:var(--blue)">v2.0</span></p>
 
@@ -815,7 +832,28 @@
       inp.addEventListener('change', () => { loadFromForm(); renderPreview(); });
     });
 
-    loadFromFile();
+    const ADMIN_PASS = '000000';
+    function checkLogin() {
+      const pw = (el('loginPassword')?.value || '').trim();
+      if (pw === ADMIN_PASS) {
+        sessionStorage.setItem('sm_admin_auth', '1');
+        el('loginOverlay').style.display = 'none';
+        el('adminContent').style.display = 'block';
+        loadFromFile();
+      } else {
+        el('loginErr').classList.add('show');
+        el('loginPassword').value = '';
+        el('loginPassword').focus();
+      }
+    }
+    if (sessionStorage.getItem('sm_admin_auth') === '1') {
+      el('loginOverlay').style.display = 'none';
+      el('adminContent').style.display = 'block';
+      loadFromFile();
+    } else {
+      el('loginPassword').addEventListener('keypress', (e) => { if (e.key === 'Enter') checkLogin(); });
+      el('loginPassword').focus();
+    }
   </script>
 </body>
 </html>
