@@ -1,84 +1,273 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Access - Senja Manja #9</title>
-  <style>
-    :root{
-      --bg:#061524;
-      --card:#0d2438;
-      --line:#2c4862;
-      --text:#eaf4ff;
-      --muted:#9fc0d8;
-      --gold:#d6b969;
-      --green:#2ed08d;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      display:grid;
-      place-items:center;
-      background:radial-gradient(circle at 20% 15%, rgba(46,208,141,.18), transparent 35%), linear-gradient(160deg, #05101a 0%, #092038 100%);
-      color:var(--text);
-      font-family:Inter, Arial, sans-serif;
-      padding:18px;
-    }
-    .card{
-      width:min(640px,100%);
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:rgba(13,36,56,.82);
-      padding:24px;
-      box-shadow:0 24px 42px rgba(0,0,0,.36);
-    }
-    h1{margin:0 0 10px;font-size:26px;color:#f8f2df}
-    p{margin:0 0 10px;color:var(--muted);line-height:1.6}
-    .tag{
-      display:inline-block;
-      margin-bottom:14px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(214,185,105,.45);
-      color:#ffe9ab;
-      background:rgba(214,185,105,.16);
-      font-size:12px;
-      font-weight:700;
-      text-transform:uppercase;
-      letter-spacing:.5px;
-    }
-    a{
-      display:inline-block;
-      margin-top:10px;
-      text-decoration:none;
-      color:#d7ffe9;
-      border:1px solid rgba(46,208,141,.5);
-      background:rgba(46,208,141,.16);
-      border-radius:12px;
-      padding:11px 14px;
-      font-weight:700;
-    }
-    code{
-      background:rgba(6,20,30,.8);
-      border:1px solid rgba(159,192,216,.3);
-      border-radius:8px;
-      padding:2px 6px;
-      color:#dbebff;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Senja Manja #9</title>
+<style>
+:root{--bg:#0b0b12;--card:#151522;--line:#2b2b42;--txt:#ece4d3;--muted:#9f947e;--gold:#c9a84c;--ok:#4ade80;--warn:#fbbf24}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--txt)}
+.wrap{max-width:860px;margin:24px auto;padding:0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+h1{margin:0 0 8px;font-size:24px;color:var(--gold)} p{color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px} .full{grid-column:1/-1}
+label{display:block;font-size:12px;color:var(--muted);margin:0 0 6px}
+input{width:100%;padding:10px 12px;background:#0f0f18;border:1px solid #2a2a3a;border-radius:8px;color:var(--txt)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+button{padding:10px 14px;border:1px solid var(--line);background:#1b1b2b;color:var(--txt);border-radius:8px;cursor:pointer}
+button.primary{background:linear-gradient(135deg,#8b6914,#c9a84c);color:#111;font-weight:700;border:none}
+.log{white-space:pre-wrap;background:#0f0f18;border:1px solid #292940;border-radius:8px;padding:12px;min-height:92px;color:#d5cfbf}
+.small{font-size:12px;color:var(--muted)} .ok{color:var(--ok)} .warn{color:var(--warn)}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-  <main class="card">
-    <span class="tag">Admin Gateway</span>
-    <h1>Admin management moved to dashboard</h1>
-    <p>
-      Edit, delete, and add financial records directly in the main dashboard using admin mode.
-    </p>
-    <p>
-      Open this URL: <code>index.html?admin=1</code>
-    </p>
-    <a href="./index.html?admin=1">Open Admin Mode</a>
-  </main>
+<div class="wrap">
+  <div class="card">
+    <h1>Admin Panel Senja Manja #9</h1>
+    <p>Ubah angka inti, lalu publish langsung ke <code>index.html</code> di GitHub Pages.</p>
+    <p class="small">Catatan: token tidak disimpan; hanya dipakai saat klik publish.</p>
+  </div>
+
+  <div class="card">
+    <div class="grid">
+      <div class="full">
+        <label>GitHub Token (scope: repo)</label>
+        <input id="token" type="password" placeholder="ghp_xxx..." />
+      </div>
+      <div>
+        <label>Owner</label>
+        <input id="owner" value="frmnsyahanggoro-ai" />
+      </div>
+      <div>
+        <label>Repository</label>
+        <input id="repo" value="SENJAMANJA-9" />
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="grid">
+      <div>
+        <label>Rogo Music (Harga Asli)</label>
+        <input id="rogoAsli" type="number" value="3300000" />
+      </div>
+      <div>
+        <label>Subsidi Teman-teman</label>
+        <input id="subsidi" type="number" value="200000" />
+      </div>
+      <div>
+        <label>Crew (orang)</label>
+        <input id="crew" type="number" value="13" />
+      </div>
+      <div>
+        <label>Honor Soundman</label>
+        <input id="soundman" type="number" value="200000" />
+      </div>
+      <div>
+        <label>Cetak Sticker</label>
+        <input id="sticker" type="number" value="280000" />
+      </div>
+      <div>
+        <label>Nama Peserta #97</label>
+        <input id="bisma" value="Bisma" />
+      </div>
+    </div>
+
+    <div class="btns">
+      <button id="load">Load dari GitHub</button>
+      <button id="preview">Hitung Preview</button>
+      <button id="publish" class="primary">Publish ke GitHub</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div id="previewBox" class="small">Preview belum dihitung.</div>
+  </div>
+
+  <div class="card">
+    <div id="log" class="log">Log siap.</div>
+  </div>
+</div>
+
+<script>
+const pemasukan = 8572500;
+const konsumsiPeserta = 2820000;
+const takjil = 1350000;
+const lainMakan = 115000;
+
+const el = (id) => document.getElementById(id);
+const log = (msg) => el('log').textContent += "\n" + msg;
+const setLog = (msg) => el('log').textContent = msg;
+
+function rupiah(n){
+  const v = Math.round(Number(n)||0);
+  return 'Rp ' + v.toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+}
+
+function calc(){
+  const rogoAsli = Number(el('rogoAsli').value||0);
+  const subsidi = Number(el('subsidi').value||0);
+  const crew = Number(el('crew').value||0);
+  const soundman = Number(el('soundman').value||0);
+  const sticker = Number(el('sticker').value||0);
+
+  const rogoNet = rogoAsli - subsidi;
+  const crewVal = crew * 30000;
+  const subtotalAcara = rogoNet + konsumsiPeserta + crewVal + soundman;
+  const totalPengeluaran = subtotalAcara + takjil + sticker;
+  const sisaAwal = pemasukan - totalPengeluaran;
+  const danaDarurat = sisaAwal - lainMakan;
+
+  return {rogoAsli, subsidi, crew, soundman, sticker, rogoNet, crewVal, subtotalAcara, totalPengeluaran, sisaAwal, danaDarurat};
+}
+
+function renderPreview(){
+  const c = calc();
+  el('previewBox').innerHTML = `
+    <b>Total Pengeluaran:</b> ${rupiah(c.totalPengeluaran)}<br>
+    <b>Sisa Awal:</b> ${rupiah(c.sisaAwal)}<br>
+    <b>Dana Darurat:</b> ${rupiah(c.danaDarurat)}<br>
+    <span class="warn">Rogo Net = ${rupiah(c.rogoNet)} | Crew ${c.crew} org = ${rupiah(c.crewVal)}</span>
+  `;
+}
+
+function replaceOrThrow(html, regex, replacer, label){
+  if(!regex.test(html)) throw new Error('Pattern tidak ketemu: '+label);
+  return html.replace(regex, replacer);
+}
+
+function updateHtml(html){
+  const c = calc();
+  const bisma = (el('bisma').value || 'Bisma').trim();
+
+  const rogoBlock = [
+    `<tr><td><strong style="color:var(--gold2)">Rogo Music</strong> <span style="font-size:9px;color:var(--text2)">(harga asli)</span></td><td></td><td class="td-right" style="color:var(--text2);text-decoration:line-through">${rupiah(c.rogoAsli)}</td></tr>`,
+    `        <tr><td style="padding-left:28px;color:var(--green)">&#8627; Subsidi dari teman-teman</td><td class="td-center" style="color:var(--green)">Donasi</td><td class="td-right" style="color:var(--green)">− ${rupiah(c.subsidi).replace('Rp ','Rp ')}</td></tr>`,
+    `        <tr><td><strong style="color:var(--gold2)">Rogo Music</strong> <span style="font-size:9px;color:var(--gold)">setelah subsidi</span></td><td></td><td class="td-right">${rupiah(c.rogoNet)}</td></tr>`,
+    `        <tr class="row-group"><td colspan="3">Konsumsi Peserta &amp; Crew</td></tr>`
+  ].join('\n');
+
+  html = replaceOrThrow(
+    html,
+    /<tr><td><strong style="color:var\(--gold2\)">Rogo Music<\/strong>[\s\S]*?<tr class="row-group"><td colspan="3">Konsumsi Peserta &amp; Crew<\/td><\/tr>/,
+    rogoBlock,
+    'Rogo block'
+  );
+
+  html = replaceOrThrow(
+    html,
+    /<tr class="row-update"><td style="padding-left:28px">Crew <span class="badge badge-donasi" style="margin-left:6px;font-size:8px">UPDATE: \d+ org<\/span><\/td><td class="td-center" style="color:var\(--text2\)">\d+ org &times; Rp 30\.000<\/td><td class="td-right" style="color:var\(--gold2\)">Rp [\d\.]+<\/td><\/tr>/,
+    `<tr class="row-update"><td style="padding-left:28px">Crew <span class="badge badge-donasi" style="margin-left:6px;font-size:8px">UPDATE: ${c.crew} org</span></td><td class="td-center" style="color:var(--text2)">${c.crew} org &times; Rp 30.000</td><td class="td-right" style="color:var(--gold2)">${rupiah(c.crewVal)}</td></tr>`,
+    'Crew row'
+  );
+
+  html = replaceOrThrow(
+    html,
+    /<tr class="row-new"><td><strong style="color:var\(--blue\)">Soundman<\/strong> <span class="badge badge-baru" style="margin-left:6px">BARU<\/span><\/td><td class="td-center" style="color:var\(--text2\)">Honor<\/td><td class="td-right" style="color:var\(--blue\)">Rp [\d\.]+<\/td><\/tr>/,
+    `<tr class="row-new"><td><strong style="color:var(--blue)">Soundman</strong> <span class="badge badge-baru" style="margin-left:6px">BARU</span></td><td class="td-center" style="color:var(--text2)">Honor</td><td class="td-right" style="color:var(--blue)">${rupiah(c.soundman)}</td></tr>`,
+    'Soundman row'
+  );
+
+  html = replaceOrThrow(
+    html,
+    /<tr class="row-subtotal"><td colspan="2">Subtotal Acara<\/td><td class="td-right">Rp [\d\.]+<\/td><\/tr>/,
+    `<tr class="row-subtotal"><td colspan="2">Subtotal Acara</td><td class="td-right">${rupiah(c.subtotalAcara)}</td></tr>`,
+    'Subtotal acara'
+  );
+
+  html = replaceOrThrow(
+    html,
+    /<tr class="row-new"><td><strong style="color:var\(--blue\)">Cetak Sticker<\/strong> <span class="badge badge-baru" style="margin-left:6px">BARU<\/span><\/td><td class="td-center" style="color:var\(--text2\)">3 Meter<\/td><td class="td-right" style="color:var\(--blue\)">Rp [\d\.]+<\/td><\/tr>/,
+    `<tr class="row-new"><td><strong style="color:var(--blue)">Cetak Sticker</strong> <span class="badge badge-baru" style="margin-left:6px">BARU</span></td><td class="td-center" style="color:var(--text2)">3 Meter</td><td class="td-right" style="color:var(--blue)">${rupiah(c.sticker)}</td></tr>`,
+    'Sticker row'
+  );
+
+  html = html.replace(/<span class="section-count">Rp [\d\.]+<\/span>(?=[\s\S]*?<div class="table-wrap">[\s\S]*?<tr class="row-total"><td colspan="2">TOTAL PENGELUARAN<\/td>)/, `<span class="section-count">${rupiah(c.totalPengeluaran)}</span>`);
+  html = html.replace(/<tr class="row-total"><td colspan="2">TOTAL PENGELUARAN<\/td><td class="td-right">Rp [\d\.]+<\/td><\/tr>/, `<tr class="row-total"><td colspan="2">TOTAL PENGELUARAN</td><td class="td-right">${rupiah(c.totalPengeluaran)}</td></tr>`);
+  html = html.replace(/<div class="fc-label">Total Pengeluaran<\/div>\s*<div class="fc-val">Rp [\d\.]+<\/div>/, `<div class="fc-label">Total Pengeluaran</div>\n      <div class="fc-val">${rupiah(c.totalPengeluaran)}</div>`);
+  html = html.replace(/<span class="rl">Total Pengeluaran<\/span><span class="rv">- Rp [\d\.]+<\/span>/, `<span class="rl">Total Pengeluaran</span><span class="rv">- ${rupiah(c.totalPengeluaran)}</span>`);
+  html = html.replace(/<span class="rl">Sisa Awal<\/span><span class="rv">Rp [\d\.]+<\/span>/, `<span class="rl">Sisa Awal</span><span class="rv">${rupiah(c.sisaAwal)}</span>`);
+  html = html.replace(/<span class="rl">Dana Darurat \(Sisa Akhir\)<\/span><span class="rv">Rp [\d\.]+<\/span>/, `<span class="rl">Dana Darurat (Sisa Akhir)</span><span class="rv">${rupiah(c.danaDarurat)}</span>`);
+
+  html = html.replace(/<div class="update-box">[\s\S]*?<\/div>/, `<div class="update-box">\n  &#9679; <strong>Pembaruan:</strong> Bisma (#97) ditambahkan &bull; Soundman honor ${rupiah(c.soundman)} &bull;\n  Crew: 12 &rarr; <strong>${c.crew} orang</strong> &bull; Total Pengeluaran: Rp 7.570.000 &rarr; <strong>${rupiah(c.totalPengeluaran)}</strong> &bull;\n  Dana Darurat: Rp 687.500 &rarr; <strong>${rupiah(c.danaDarurat)}</strong> &bull; Cetak Sticker 3m ${rupiah(c.sticker)}\n</div>`);
+
+  html = html.replace(/<tr><td>97<\/td><td>[^<]+<span class="badge badge-baru" style="margin-left:4px">BARU<\/span><\/td>/, `<tr><td>97</td><td>${bisma} <span class="badge badge-baru" style="margin-left:4px">BARU</span></td>`);
+
+  return html;
+}
+
+async function ghReq(url, opts={}){
+  const token = el('token').value.trim();
+  if(!token) throw new Error('Token wajib diisi');
+  const headers = { 'Authorization': 'token '+token, 'Accept':'application/vnd.github+json', ...opts.headers };
+  const res = await fetch(url, { ...opts, headers });
+  if(!res.ok) throw new Error(`GitHub API ${res.status}: ${await res.text()}`);
+  return res.json();
+}
+
+async function loadCurrent(){
+  setLog('Load dari GitHub...');
+  const owner = el('owner').value.trim();
+  const repo = el('repo').value.trim();
+  const data = await ghReq(`https://api.github.com/repos/${owner}/${repo}/contents/index.html`);
+  const html = atob(data.content.replace(/\n/g,''));
+
+  const mRogoAsli = html.match(/Rogo Music<\/strong> <span style="font-size:9px;color:var\(--text2\)">\(harga asli\)<\/span><\/td><td><\/td><td class="td-right" style="color:var\(--text2\);text-decoration:line-through">Rp ([\d\.]+)/);
+  const mSubsidi = html.match(/Subsidi dari teman-teman[\s\S]*?− Rp ([\d\.]+)/);
+  const mCrew = html.match(/UPDATE: (\d+) org/);
+  const mSound = html.match(/Soundman<\/strong>[\s\S]*?style="color:var\(--blue\)">Rp ([\d\.]+)/);
+  const mSticker = html.match(/Cetak Sticker<\/strong>[\s\S]*?style="color:var\(--blue\)">Rp ([\d\.]+)/);
+  const mBisma = html.match(/<tr><td>97<\/td><td>(.*?) <span class="badge badge-baru"/);
+
+  const toNum = (s) => Number((s||'0').replace(/\./g,''));
+  if(mRogoAsli) el('rogoAsli').value = toNum(mRogoAsli[1]);
+  if(mSubsidi) el('subsidi').value = toNum(mSubsidi[1]);
+  if(mCrew) el('crew').value = Number(mCrew[1]);
+  if(mSound) el('soundman').value = toNum(mSound[1]);
+  if(mSticker) el('sticker').value = toNum(mSticker[1]);
+  if(mBisma) el('bisma').value = mBisma[1].trim();
+
+  renderPreview();
+  log('Load selesai.');
+}
+
+async function publish(){
+  setLog('Publish dimulai...');
+  const owner = el('owner').value.trim();
+  const repo = el('repo').value.trim();
+
+  const current = await ghReq(`https://api.github.com/repos/${owner}/${repo}/contents/index.html`);
+  const html = atob(current.content.replace(/\n/g,''));
+  const updated = updateHtml(html);
+
+  const encoder = new TextEncoder();
+  const bytes = encoder.encode(updated);
+  let binary = '';
+  bytes.forEach(b => binary += String.fromCharCode(b));
+  const contentB64 = btoa(binary);
+
+  const body = {
+    message: 'Admin update: nilai keuangan & peserta',
+    content: contentB64,
+    sha: current.sha
+  };
+
+  await ghReq(`https://api.github.com/repos/${owner}/${repo}/contents/index.html`, {
+    method: 'PUT',
+    headers: { 'Content-Type':'application/json' },
+    body: JSON.stringify(body)
+  });
+
+  renderPreview();
+  log('Publish sukses. Tunggu 30-90 detik sampai GitHub Pages refresh.');
+}
+
+el('preview').addEventListener('click', renderPreview);
+el('load').addEventListener('click', () => loadCurrent().catch(e => { log('ERROR: '+e.message); }));
+el('publish').addEventListener('click', () => publish().catch(e => { log('ERROR: '+e.message); }));
+
+renderPreview();
+</script>
 </body>
 </html>
