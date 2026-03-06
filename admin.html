@@ -836,7 +836,6 @@
     function checkLogin() {
       const pw = (el('loginPassword')?.value || '').trim();
       if (pw === ADMIN_PASS) {
-        sessionStorage.setItem('sm_admin_auth', '1');
         el('loginOverlay').style.display = 'none';
         el('adminContent').style.display = 'block';
         loadFromFile();
@@ -846,14 +845,8 @@
         el('loginPassword').focus();
       }
     }
-    if (sessionStorage.getItem('sm_admin_auth') === '1') {
-      el('loginOverlay').style.display = 'none';
-      el('adminContent').style.display = 'block';
-      loadFromFile();
-    } else {
-      el('loginPassword').addEventListener('keypress', (e) => { if (e.key === 'Enter') checkLogin(); });
-      el('loginPassword').focus();
-    }
+    el('loginPassword').addEventListener('keypress', (e) => { if (e.key === 'Enter') checkLogin(); });
+    el('loginPassword').focus();
   </script>
 </body>
 </html>
