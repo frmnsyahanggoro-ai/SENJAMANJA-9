@@ -1,4 +1,4 @@
-# Senja Manja #9 — Laporan Keuangan
+# Senja Manja #9 — Premium Financial Dashboard
 
 > Buka Bersama & Bagi Bagi Takjil • 7 Maret 2026  
 > *Still Brotherhood & Keep Young — Berbagi, Berkarya, Bersenang Senang*
@@ -20,6 +20,8 @@
 - Rincian pemasukan (iuran + donasi takjil)
 - Rincian pengeluaran (Rogo Music, konsumsi, soundman, takjil)
 - Rekap keuangan final
+- Dashboard finansial premium (chart + audit + tabel filter/sort/search)
+- Admin mode untuk tambah/edit/hapus data transaksi via `index.html?admin=1`
 
 ## Pembaruan Terakhir
 
