@@ -477,9 +477,9 @@
   </div>
 
   <div class="music-widget" aria-live="polite">
-    <button id="musicToggle" class="music-btn" type="button">Ramadan Music</button>
+    <button id="musicToggle" class="music-btn" type="button">Unmute Music</button>
     <div id="musicPanel" class="music-panel" role="region" aria-label="Ramadan music player">
-      <p>Ramadan-themed royalty-free style track. Source:
+      <p>Autoplay berjalan dalam mode mute (aturan browser). Klik tombol untuk nyalakan suara. Source:
         <a class="music-link" href="https://www.youtube.com/watch?v=WifNqQ8ZQ0M" target="_blank" rel="noopener noreferrer">YouTube</a>
       </p>
       <iframe
@@ -571,33 +571,37 @@
       const toggle = document.getElementById("musicToggle");
       const panel = document.getElementById("musicPanel");
       const frame = document.getElementById("musicFrame");
-      const embedUrl = "https://www.youtube-nocookie.com/embed/WifNqQ8ZQ0M?autoplay=1&controls=1&rel=0";
-      const idleUrl = "https://www.youtube-nocookie.com/embed/WifNqQ8ZQ0M?autoplay=0&controls=1&rel=0";
+      const mutedAutoplayUrl = "https://www.youtube-nocookie.com/embed/WifNqQ8ZQ0M?autoplay=1&mute=1&controls=0&rel=0&loop=1&playlist=WifNqQ8ZQ0M";
+      const unmutedUrl = "https://www.youtube-nocookie.com/embed/WifNqQ8ZQ0M?autoplay=1&mute=0&controls=1&rel=0";
+
+      function setMutedBackground() {
+        panel.classList.remove("open");
+        frame.src = mutedAutoplayUrl;
+        toggle.textContent = "Unmute Music";
+      }
+
+      function setUnmutedPanel() {
+        panel.classList.add("open");
+        frame.src = unmutedUrl;
+        toggle.textContent = "Close Music";
+      }
 
       toggle.addEventListener("click", () => {
-        const isOpen = panel.classList.toggle("open");
-        if (isOpen) {
-          frame.src = embedUrl;
-          toggle.textContent = "Close Music";
+        if (panel.classList.contains("open")) {
+          setMutedBackground();
         } else {
-          frame.src = "";
-          toggle.textContent = "Ramadan Music";
+          setUnmutedPanel();
         }
       });
 
       window.addEventListener("keydown", (event) => {
         if (event.key === "m" || event.key === "M") {
-          if (!panel.classList.contains("open")) {
-            panel.classList.add("open");
-            frame.src = idleUrl;
-            toggle.textContent = "Close Music";
-          } else {
-            panel.classList.remove("open");
-            frame.src = "";
-            toggle.textContent = "Ramadan Music";
-          }
+          if (panel.classList.contains("open")) setMutedBackground();
+          else setUnmutedPanel();
         }
       });
+
+      setMutedBackground();
     })();
   </script>
 </body>
